@@ -1,0 +1,18 @@
+# Dashboard
+streamlit>=1.50
+pandas>=2.2
+plotly==5.24.1
+kaleido==0.2.1
+torch>=2.4
+transformers>=4.46
+safetensors>=0.4
+# Notebooks
+requests>=2.32
+beautifulsoup4>=4.12
+lxml>=5.0
+scikit-learn>=1.5
+seaborn>=0.13
+matplotlib>=3.9
+accelerate>=1.0
+google-genai>=1.0
+jupyter

@@ -7,20 +7,22 @@
 
 | Modelo (test) | F1 macro |
 | :-- | :-: |
-| Zero-shot XNLI | [completar] |
-| LLM débil (Gemini) | [completar] |
-| **DistilBERT fine-tuned** | **[completar]** |
+| Zero-shot XNLI | 0.67 |
+| LLM débil (Gemini `gemini-3.5-flash-lite`) | 1.00 |
+| **DistilBERT fine-tuned** | **0.95** |
 
-Acuerdo LLM–humano: [xx]/20.
+Test: 60 noticias (15 por categoría). En la muestra de 40 titulares de la línea base, el zero-shot tuvo F1 0.69. El LLM ve titular + bajada, mientras que DistilBERT solo ve el titular.
+
+Acuerdo LLM–humano: 18/20 (90 %); los desacuerdos son las filas 7 y 19 de `datos/auditoria_20.csv`.
 
 ## 2. Medio y fechas de extracción
-- **Medio:** La República (`larepublica.pe`), [N] noticias (~100 por categoría).
-- **Fecha de descarga:** [fecha]. Las noticias van de [fecha mínima] a [fecha máxima].
+- **Medio:** La República (`larepublica.pe`), 400 noticias (100 por categoría).
+- **Fecha de descarga:** 2026-10-19. Las noticias van del 2025-01-01 al 2026-10-18.
 - **Fuentes:** RSS y sitemaps oficiales y, para completar, URLs antiguas listadas con Internet Archive y descargadas de `larepublica.pe`. Respeté `robots.txt`, usé un User-Agent descriptivo, pausas de 1–2 s y como máximo 1 reintento.
 
 ## 3. Hallazgos
-1. El fine-tuning mejora mucho al zero-shot ([0.xx] vs [0.xx] de F1) con menos de 300 titulares de entrenamiento.
-2. Deportes es la categoría más fácil por su vocabulario propio; la más difícil es [categoría], porque se mezcla con temas de [política/economía].
+1. El fine-tuning mejora mucho al zero-shot (0.95 vs 0.67 de F1 en test) con menos de 300 titulares de entrenamiento.
+2. Deportes es la categoría más fácil por su vocabulario propio; la más difícil es ciencia_tecnologia (F1 0.89), porque se mezcla con temas de economía y política: sus 3 errores en test fueron notas sobre fraude digital, un evento astronómico y una anécdota de Steve Jobs.
 
 ## 4. Limitaciones
 1. Pocos datos y un solo medio: el test tiene ~60 noticias, así que un error cambia bastante el F1 de una categoría.

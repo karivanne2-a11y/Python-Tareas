@@ -1,0 +1,10 @@
+{
+  "total_noticias": 400,
+  "f1_macro_test": 0.9485,
+  "accuracy_test": 0.95,
+  "f1_zero_shot_40": 0.6917,
+  "acuerdo_llm_humano": 18,
+  "acuerdo_llm_humano_pct": 0.9,
+  "modelo_llm": "gemini-3.5-flash-lite",
+  "tamano_test": 60
+}

@@ -87,11 +87,11 @@ streamlit run app.py
 Reproducir los notebooks (CPU, Windows/Linux, Python 3.11):
 
 ```bash
-uv sync                      # entorno completo: PaddleOCR, faster-whisper, EasyOCR, transformers, llama-cpp-python
-uv run python datos.py       # descarga documentos y audio a datos/raw/
-uv run jupyter nbconvert --to notebook --execute --inplace 01_extraccion.ipynb
-uv run jupyter nbconvert --to notebook --execute --inplace 02_evaluacion.ipynb
-uv run python scripts/preparar_ejemplos.py .
+uv sync --project entorno_notebooks          # entorno completo: PaddleOCR, faster-whisper, EasyOCR, transformers, llama-cpp-python
+uv run --project entorno_notebooks python datos.py
+uv run --project entorno_notebooks jupyter nbconvert --to notebook --execute --inplace 01_extraccion.ipynb
+uv run --project entorno_notebooks jupyter nbconvert --to notebook --execute --inplace 02_evaluacion.ipynb
+uv run --project entorno_notebooks python scripts/preparar_ejemplos.py .
 ```
 
 El LLM se descarga de `https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF` (`qwen2.5-1.5b-instruct-q4_k_m.gguf`) a `modelos/`.
@@ -107,6 +107,7 @@ tarea_2/
 ├── app.py                     # dashboard Streamlit
 ├── datos.py                   # descarga reproducible de los corpus
 ├── voz.py                     # ASR, VAD, diarización, exportación SRT/TXT, seudonimización, normalización
+├── entorno_notebooks/         # pyproject.toml + uv.lock del entorno pesado (fuera de la raíz para que Streamlit Cloud use requirements.txt)
 ├── scripts/                   # precálculo de OCR/ASR (mismo código que los notebooks) y ejemplos ligeros
 ├── notebooks_src/             # fuente .py (jupytext) de los notebooks
 ├── datos/

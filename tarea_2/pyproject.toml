@@ -1,0 +1,30 @@
+[project]
+name = "tarea2"
+version = "0.1.0"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "accelerate>=1.15.0",
+    "easyocr>=1.7.2",
+    "faster-whisper>=1.2.1",
+    "imageio-ffmpeg>=0.6.0",
+    "ipykernel>=7.4.0",
+    "jiwer>=4.0.0",
+    "jupyter>=1.1.1",
+    "jupytext>=1.19.6",
+    "librosa>=0.11.0",
+    "nbconvert>=7.17.2",
+    "nbformat>=5.11.1",
+    "paddleocr>=2.10.0",
+    "paddlepaddle>=3.3.1",
+    "pandas>=3.1.0",
+    "plotly>=7.1.0",
+    "remotezip>=0.12.6",
+    "requests>=2.34.2",
+    "scikit-learn>=1.9.1",
+    "soundfile>=0.14.0",
+    "speechbrain>=1.1.2",
+    "streamlit>=1.66.1",
+    "torch>=2.14.1",
+    "torchaudio>=2.11.0",
+    "transformers>=5.20.2",
+]

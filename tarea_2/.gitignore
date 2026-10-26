@@ -1,0 +1,11 @@
+# corpus original, cachés y tablas de seudónimos (no se publican)
+datos/raw/
+modelos/*.safetensors
+modelos/*.bin
+modelos/*.ckpt
+modelos/*.gguf
+modelos/ecapa/
+modelos/checkpoint-*/
+.venv/
+__pycache__/
+.ipynb_checkpoints/

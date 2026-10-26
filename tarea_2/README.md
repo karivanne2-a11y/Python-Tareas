@@ -1,6 +1,6 @@
 # Tarea 2 – Voces y documentos peruanos: del archivo escaneado al texto buscable
 
-**Dashboard público:** `https://<COMPLETAR>.streamlit.app` · **Estudiante:** <Nombre Completo> (@<usuario_github>)
+**Dashboard público:** https://voces-documentos-karen.streamlit.app/ · **Estudiante:** <Nombre Completo> (@karivanne2-a11y)
 
 ## 1. Pregunta del proyecto
 

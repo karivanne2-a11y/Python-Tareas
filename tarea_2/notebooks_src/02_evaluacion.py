@@ -15,7 +15,10 @@ import plotly.express as px
 import plotly.io as pio
 import jiwer
 import voz
-pio.renderers.default = "notebook_connected"
+# Gráficos interactivos en Jupyter + copia PNG estática para que se vean en GitHub (kaleido usa Chrome/Edge)
+import os
+os.environ.setdefault("BROWSER_PATH", "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe")
+pio.renderers.default = "notebook_connected+png"
 warnings.filterwarnings("ignore")
 pd.set_option("display.max_colwidth", 100)
 
@@ -183,8 +186,15 @@ fig.show()
 
 # %%
 from llama_cpp import Llama
-# Pesos descargados de https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF (no versionados)
-llm = Llama(model_path="modelos/qwen2.5-1.5b-instruct-q4_k_m.gguf", n_ctx=4096, n_threads=4, verbose=False)
+# Pesos descargados de https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF (no versionados).
+# Se cargan solo si falta alguna extracción en caché (datos/raw/cache/llm_*.json).
+llm = None
+
+def cargar_llm():
+    global llm
+    if llm is None:
+        llm = Llama(model_path="modelos/qwen2.5-1.5b-instruct-q4_k_m.gguf", n_ctx=4096, n_threads=4, verbose=False)
+    return llm
 
 PROMPT_DOC = """Eres un archivista. Lee el texto OCR de un documento peruano (puede tener errores de OCR) y devuelve SOLO un JSON con estas claves:
 "modalidad": "documento", "tema": frase corta, "resumen": una oración, "emisor": quién emite el documento o null,
@@ -203,7 +213,7 @@ TRANSCRIPCIÓN:
 
 def extraer(texto, plantilla):
     texto = (texto or "")[:2500]  # límite por costo en CPU (contexto y latencia)
-    out = llm.create_chat_completion(
+    out = cargar_llm().create_chat_completion(
         messages=[{"role": "user", "content": plantilla.format(texto=texto)}],
         response_format={"type": "json_object"}, temperature=0, max_tokens=250)
     try:

@@ -25,7 +25,10 @@ import numpy as np
 import pandas as pd
 import plotly.express as px
 import plotly.io as pio
-pio.renderers.default = "notebook_connected"
+# Gráficos interactivos en Jupyter + copia PNG estática para que se vean en GitHub (kaleido usa Chrome/Edge)
+import os
+os.environ.setdefault("BROWSER_PATH", "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe")
+pio.renderers.default = "notebook_connected+png"
 warnings.filterwarnings("ignore")
 pd.set_option("display.max_colwidth", 120)
 

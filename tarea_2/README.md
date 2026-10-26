@@ -1,6 +1,6 @@
 # Tarea 2 – Voces y documentos peruanos: del archivo escaneado al texto buscable
 
-**Dashboard público:** https://voces-documentos-karen.streamlit.app/ · **Estudiante:** <Karen Macedo> (@karivanne2-a11y)
+**Dashboard público:** https://voces-documentos-karen.streamlit.app/ · **Estudiante:** Karen Macedo (@karivanne2-a11y)
 
 ## 1. Pregunta del proyecto
 

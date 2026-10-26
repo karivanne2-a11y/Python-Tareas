@@ -1,0 +1,44 @@
+{
+ "cer_base": 0.347,
+ "wer_base": 0.033,
+ "cer_elegido": 0.347,
+ "modelo_ocr_elegido": "PaddleOCR (base)",
+ "wer_elegido": 0.033,
+ "modelo_asr_elegido": "faster-whisper small (base)",
+ "auditoria_ok": 4,
+ "auditoria_n": 20,
+ "tabla_comparativa": [
+  {
+   "modalidad": "documentos",
+   "modelo": "EasyOCR (alternativo)",
+   "metrica": "CER",
+   "error": 0.412,
+   "costo": 94.112,
+   "unidad_costo": "s/documento (CPU)"
+  },
+  {
+   "modalidad": "documentos",
+   "modelo": "PaddleOCR (base)",
+   "metrica": "CER",
+   "error": 0.347,
+   "costo": 58.974,
+   "unidad_costo": "s/documento (CPU)"
+  },
+  {
+   "modalidad": "audio",
+   "modelo": "faster-whisper small (base)",
+   "metrica": "WER",
+   "error": 0.033,
+   "costo": 1.209,
+   "unidad_costo": "RTF (CPU)"
+  },
+  {
+   "modalidad": "audio",
+   "modelo": "wav2vec2-xlsr-es (alternativo)",
+   "metrica": "WER",
+   "error": 0.227,
+   "costo": 2.541,
+   "unidad_costo": "RTF (CPU)"
+  }
+ ]
+}

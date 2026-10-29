@@ -1,11 +1,11 @@
 id,pregunta,verdad,unidad,fuente_url,notas
-p01,¿Cuál fue la población total del Perú según el Censo Nacional de 2017?,,personas,,Censo 2017 · verificar en la web del INEI
-p02,¿Qué porcentaje de la población del Perú estaba en situación de pobreza monetaria en 2024?,,%,,ENAHO · verificar
-p03,¿Cuál fue la tasa de desempleo de Lima Metropolitana en el trimestre móvil más reciente publicado?,,%,,Encuesta Permanente de Empleo · verificar
-p04,¿Cuántos hogares del Perú tenían acceso a internet en 2024?,,%,,ENAHO · verificar
-p05,¿Cuál fue la tasa de analfabetismo de la población de 15 y más años en 2024?,,%,,ENAHO · verificar
-p06,¿Cuántas personas tenía la región de Áncash según el Censo de 2017?,,personas,,Censo 2017 · verificar
-p07,¿Cuál fue la esperanza de vida al nacer en el Perú en el último dato publicado?,,años,,INEI · verificar
-p08,¿Qué porcentaje de niñas y niños menores de 5 años tuvo desnutrición crónica en 2024?,,%,,ENDES · verificar
-p09,,,,,PREGUNTA PROPIA 1 — escríbela tú y verifica la cifra a mano
-p10,,,,,PREGUNTA PROPIA 2 — escríbela tú y verifica la cifra a mano
+p01,¿Cuál fue la población total del Perú según los Censos Nacionales 2017 (incluyendo la población omitida)?,31237385,personas,https://m.inei.gob.pe/media/MenuRecursivo/noticias/nota-de-prensa-n-155-2018-inei_1.pdf,Nota de prensa INEI 155-2018 del 7-set-2018
+p02,¿Cuántas personas fueron censadas en el Perú el 22 de octubre de 2017?,29381884,personas,https://m.inei.gob.pe/media/MenuRecursivo/noticias/nota-de-prensa-n-155-2018-inei_1.pdf,Población censada; distinta de la total. Prueba si el modelo confunde ambas
+p03,¿Qué porcentaje de la población del Perú estuvo en situación de pobreza monetaria en 2025?,25.7,%,https://www.gob.pe/institucion/inei,INEI · ENAHO 2025 presentada en mayo de 2026
+p04,¿Cuál fue la tasa de desempleo de Lima Metropolitana en el trimestre móvil mayo-julio de 2026?,4.7,%,https://www.gob.pe/institucion/inei,INEI · Encuesta Permanente de Empleo
+p05,¿Qué porcentaje de los hogares del Perú tuvo acceso a internet en el primer trimestre de 2025?,58.9,%,http://www.gob.pe/institucion/inei/noticias/1195629-inei-58-9-de-los-hogares-del-pais-tiene-acceso-a-internet-en-el-primer-trimestre-de-2025,INEI · Informe técnico TIC
+p06,¿Cuántos habitantes tenía el departamento de Áncash según los Censos Nacionales 2017?,1083519,personas,https://censo2017.inei.gob.pe/censos-2017-departamento-de-ancash-cuenta-con-1-083-519-habitantes/,INEI · resultados definitivos de Áncash
+p07,¿Qué porcentaje de menores de 5 años tuvo desnutrición crónica en el Perú según la ENDES 2025?,12.1,%,https://www.gob.pe/institucion/inei,INEI · ENDES 2025 publicada en mayo de 2026
+p08,¿Qué porcentaje de niñas y niños de 6 a 35 meses tuvo anemia en el Perú según la ENDES 2025?,43.4,%,https://www.gob.pe/institucion/inei,INEI · ENDES 2025. Ojo con el rango de edad: no es menores de 3 años en general
+p09,¿Cuál fue la tasa de omisión censal de los Censos Nacionales 2017 en el Perú?,5.94,%,https://m.inei.gob.pe/media/MenuRecursivo/noticias/nota-de-prensa-n-155-2018-inei_1.pdf,PREGUNTA PROPIA 1 · dato poco citado: mide si contesta null en vez de inventar
+p10,¿Qué porcentaje de la población del departamento de Áncash concentraba la provincia del Santa según el Censo 2017?,40.2,%,https://www.inei.gob.pe/media/MenuRecursivo/noticias/nota-de-prensa-no-190-2018-inei.pdf,PREGUNTA PROPIA 2 · nota de prensa INEI 190-2018

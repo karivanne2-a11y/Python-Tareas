@@ -1,0 +1,19 @@
+[project]
+name = "mcp-inei"
+version = "0.1.0"
+description = "Servidor MCP de las series del INEI (Perú) sobre el portal de Datos Abiertos"
+requires-python = ">=3.11"
+dependencies = [
+    "fastmcp>=2.0",
+    "httpx>=0.27",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "anyio>=4.0",
+    "matplotlib>=3.8",
+]
+
+[tool.pytest.ini_options]
+markers = ["red: la prueba consulta el portal de Datos Abiertos"]

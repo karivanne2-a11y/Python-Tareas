@@ -1,0 +1,4 @@
+datos/catalogo_inei.json
+__pycache__/
+.venv/
+resultados.csv

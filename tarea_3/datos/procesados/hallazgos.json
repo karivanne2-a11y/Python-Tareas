@@ -1,0 +1,90 @@
+{
+  "canasta_2010_musd": 1632.1,
+  "canasta_2025_musd": 9827.0,
+  "canasta_crec_veces": 6.02,
+  "arandano_2012_musd": 0.47,
+  "arandano_2025_musd": 2455.3,
+  "ranking_2025_musd": {
+    "Arándano": 2455.3,
+    "Uva fresca": 1959.8,
+    "Café verde": 1796.9,
+    "Palta": 1362.7,
+    "Cacao en grano": 973.9,
+    "Espárrago fresco": 409.3,
+    "Cítricos": 378.1,
+    "Mango": 339.5,
+    "Quinua": 151.6
+  },
+  "top3_frutas_pct_canasta_2025": 58.8,
+  "top3_frutas_pct_canasta_2010": 16.6,
+  "destinos_top5_2025_pct": {
+    "USA": 38.1,
+    "NLD": 17.4,
+    "ESP": 5.7,
+    "GBR": 4.7,
+    "CHN": 3.7
+  },
+  "usa_nld_pct_2025": 55.4,
+  "usa_nld_pct_2015": 51.0,
+  "hhi_destinos_2025": 1881,
+  "n_paises_2025": 97,
+  "precio_volumen": {
+    "Arándano": {
+      "crec_valor_pct": 2426.35,
+      "crec_volumen_pct": 3506.67,
+      "crec_precio_pct": -29.95,
+      "parte_precio_pct": -11.02
+    },
+    "Cacao en grano": {
+      "crec_valor_pct": 159.36,
+      "crec_volumen_pct": 2.52,
+      "crec_precio_pct": 152.98,
+      "parte_precio_pct": 97.39
+    },
+    "Café verde": {
+      "crec_valor_pct": 195.17,
+      "crec_volumen_pct": 31.76,
+      "crec_precio_pct": 124.02,
+      "parte_precio_pct": 74.52
+    },
+    "Cítricos": {
+      "crec_valor_pct": 211.21,
+      "crec_volumen_pct": 195.15,
+      "crec_precio_pct": 5.44,
+      "parte_precio_pct": 4.67
+    },
+    "Espárrago fresco": {
+      "crec_valor_pct": -2.9,
+      "crec_volumen_pct": -18.15,
+      "crec_precio_pct": 18.63,
+      "parte_precio_pct": -581.36
+    },
+    "Mango": {
+      "crec_valor_pct": 73.32,
+      "crec_volumen_pct": 88.02,
+      "crec_precio_pct": -7.82,
+      "parte_precio_pct": -14.8
+    },
+    "Palta": {
+      "crec_valor_pct": 344.92,
+      "crec_volumen_pct": 338.14,
+      "crec_precio_pct": 1.55,
+      "parte_precio_pct": 1.03
+    },
+    "Quinua": {
+      "crec_valor_pct": 4.7,
+      "crec_volumen_pct": 30.26,
+      "crec_precio_pct": -19.63,
+      "parte_precio_pct": -476.19
+    },
+    "Uva fresca": {
+      "crec_valor_pct": 176.54,
+      "crec_volumen_pct": 127.51,
+      "crec_precio_pct": 21.55,
+      "parte_precio_pct": 19.19
+    }
+  },
+  "pct_agro_total_2010": 16.0,
+  "pct_agro_total_2025": 21.0,
+  "agro_total_2025_musd": 19278.6
+}

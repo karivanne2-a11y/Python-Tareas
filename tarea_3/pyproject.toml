@@ -1,0 +1,21 @@
+[project]
+name = "tarea-3"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "imageio-ffmpeg>=0.8.1",
+    "matplotlib>=3.11.2",
+    "numpy>=2.4.6",
+    "pandas>=3.1.0",
+    "pillow>=13.0.0",
+    "requests>=2.34.2",
+    "soundfile>=0.14.0",
+]
+
+[project.optional-dependencies]
+reel = [
+    "faster-whisper>=1.2.1",
+    "jiwer>=4.0.0",
+    "num2words>=0.5.14",
+    "qwen-tts>=0.1.1",
+]

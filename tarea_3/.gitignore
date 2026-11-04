@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+# tu grabación de voz es un dato personal: no se publica
+reel/recursos/mi_voz.*
+# intermedios del reel
+reel/*.wav
+reel/reel_previa.mp4
+reel/portada_previa.png
+reel/fuentes/

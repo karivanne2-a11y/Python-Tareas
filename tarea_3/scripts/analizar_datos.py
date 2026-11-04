@@ -109,8 +109,8 @@ def main():
                                  p=prod.precio_usd_kg.round(3))
                          [["anio", "producto", "hs", "v", "t", "p"]]
                          .rename(columns={"anio": "a", "producto": "n"}).to_dict("records"),
-        "destinos": dest.assign(v=(dest.valor_usd / 1e6).round(5))
-                        [["anio", "producto", "iso3", "v"]]
+        "destinos": dest.assign(v=(dest.valor_usd / 1e6).round(5), t=(dest.peso_kg / 1e6).round(5))
+                        [["anio", "producto", "iso3", "v", "t"]]
                         .rename(columns={"anio": "a", "producto": "n", "iso3": "c"})
                         .query("v > 0").to_dict("records"),
         "paises": {k: PAISES_ES.get(k, v) for k, v in nombres.items()},

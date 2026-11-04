@@ -1,5 +1,7 @@
 # Tarea 3 – El boom agroexportador del Perú, 2010–2025
 
+**Autora:** Karen Macedo · Python Intermedio
+
 **Pregunta de investigación:** ¿qué productos y qué mercados explican el crecimiento de la agroexportación peruana entre 2010 y 2025, y ese crecimiento vino de vender *más* (volumen) o de vender *más caro* (precio)?
 
 - 📊 **Dashboard público:** https://karivanne2-a11y.github.io/Python-Tareas/tarea_3/web/
@@ -8,7 +10,18 @@
 
 ## Descripción
 
-El proyecto sigue nueve productos emblemáticos de la agroexportación peruana: palta, arándano, uva fresca, espárrago fresco, mango, café verde, cítricos, cacao en grano y quinua. Para cada uno mide el valor exportado, el volumen, el precio implícito por kilo y los países de destino. El dashboard permite filtrar por producto, rango de años e indicador. Además separa el crecimiento del valor en un efecto volumen y un efecto precio, y muestra en un mapa a dónde va cada producto.
+El proyecto sigue nueve productos emblemáticos de la agroexportación peruana: palta, arándano, uva fresca, espárrago fresco, mango, café verde, cítricos, cacao en grano y quinua. Para cada uno mide el valor exportado, el volumen, el precio implícito por kilo y los países de destino. Además separa el crecimiento del valor en un efecto volumen y un efecto precio, y muestra en un mapa a dónde va cada producto.
+
+**Qué se puede hacer en el dashboard:**
+- **Filtros:** producto, mercado de destino (147 países), rango de años e indicador (valor, volumen o precio por kilo).
+- **▶ Animar años:** recorre año a año el periodo elegido y actualiza el mapa, los KPIs y los gráficos.
+- **Clic para filtrar:** un país en el mapa o una barra de destinos filtra todo por ese mercado; una burbuja, una barra del ranking o una fila de la tabla elige el producto.
+- **Mapa del crecimiento:** burbujas que muestran cuántas veces cambiaron el volumen y el precio de cada producto.
+- **Tabla ordenable** de los nueve productos, con su principal destino.
+- **Descarga en CSV** de la selección actual.
+- **Validación:** un gráfico compara el total de Comtrade con la cifra oficial del BCRP.
+- **Hallazgos con botón** «Ver en el tablero», que lleva al dato que los respalda.
+- **Enlace compartible:** el estado de los filtros queda en la URL.
 
 ## Datos y metodología
 
@@ -44,6 +57,7 @@ Además, el peso del agro (capítulos HS 01–24) en las exportaciones totales d
 
 ![Dashboard: KPIs y evolución](web/assets/captura_1.jpg)
 ![Dashboard: mapa de destinos](web/assets/captura_2.jpg)
+![Dashboard: volumen frente a precio, mapa del crecimiento y tabla](web/assets/captura_3.jpg)
 
 ## Limitaciones
 
@@ -74,7 +88,8 @@ tarea_3/
 └── reel/
     ├── guion.json       guion de 7 escenas con las cifras verificadas
     ├── graficos.py      gráficos de cada escena
-    ├── reel.py, hacer_reel.py   voz clonada + video (adaptado de la sesión 15)
+    ├── reel.py, hacer_reel.py   voz clonada + video animado (adaptado de la sesión 15)
+    ├── recortar_voz.py  elige 15-25 s de la grabación como voz de referencia
     ├── subtitulos.srt, reel.mp4
     └── recursos/        gráficos y captura del dashboard usados en el reel
 ```
@@ -96,8 +111,19 @@ Reel. Graba entre 15 y 25 segundos de tu voz en `reel/recursos/mi_voz.m4a`; ese 
 ```bash
 uv run python reel/graficos.py
 uv run python reel/hacer_reel.py --muda                                  # vista previa sin voz
-uv run --extra reel python reel/hacer_reel.py --voz reel/recursos/mi_voz.m4a
+uv run --extra reel python reel/recortar_voz.py audio.ogg                       # muestra la transcripción con tiempos
+uv run --extra reel python reel/recortar_voz.py audio.ogg --desde 0.6 --hasta 24.3  # recorta 15-25 s -> recursos/mi_voz.wav
+uv run --extra reel python reel/hacer_reel.py --voz reel/recursos/mi_voz.wav
+uv run --extra reel python reel/hacer_reel.py --reusar                          # rehace subtítulos y video sin volver a narrar
 ```
+
+En Windows, si `ctranslate2` o `torch` no cargan (`WinError 126`), falta el runtime de Visual C++. Instala el [Microsoft Visual C++ Redistributable](https://aka.ms/vs/17/release/vc_redist.x64.exe).
+
+Qué tiene el reel:
+- Dura 60 segundos, en formato vertical 1080 × 1920, con 7 escenas.
+- Cada escena trae su gráfico, que aparece con un barrido animado, y una cifra que cuenta hacia arriba. La última es una captura del mapa del dashboard.
+- Los subtítulos se resaltan palabra por palabra. Su texto sale del guion y Whisper solo aporta los tiempos, así que un error de transcripción no llega a la pantalla.
+- Lleva el aviso «VOZ GENERADA CON IA» y créditos de fuente, gráficos y música.
 
 La narración usa Qwen3-TTS (Qwen/Qwen3-TTS-12Hz-0.6B-Base), que clona la voz de la autora. Los subtítulos y el control de calidad (WER por escena) usan faster-whisper. El video se arma con Pillow y ffmpeg, en formato 1080 × 1920. La música de fondo se genera por código (acordes con ondas seno), así que no tiene derechos de autor.
 

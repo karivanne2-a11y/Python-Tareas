@@ -7,52 +7,66 @@
       "cifra": "US$ 2,455 M",
       "etiqueta": "Arándanos exportados en 2025",
       "imagen": "recursos/escena_1.png",
-      "cifra_en_texto": true
+      "cifra_en_texto": true,
+      "wer": 0.0
     },
     {
       "frase": "Nueve productos del campo pasaron de mil seiscientos a casi diez mil millones de dólares en quince años.",
       "cifra": "×6",
       "etiqueta": "Nueve productos agrícolas, 2010 a 2025",
       "imagen": "recursos/escena_2.png",
-      "cifra_en_texto": true
+      "cifra_en_texto": true,
+      "wer": 0.0
     },
     {
       "frase": "Arándano, uva y palta ya suman seis de cada diez dólares de esa canasta. En dos mil diez no llegaban a dos.",
       "cifra": "59 %",
       "etiqueta": "Arándano, uva y palta en 2025",
       "imagen": "recursos/escena_3.png",
-      "cifra_en_texto": true
+      "cifra_en_texto": true,
+      "wer": 0.0
     },
     {
       "frase": "¿Vendimos más o más caro? Las frutas crecieron por volumen: el arándano envió treinta y seis veces más, aunque su precio bajó.",
       "cifra": "×36",
       "etiqueta": "Toneladas de arándano, 2015 a 2025",
       "imagen": "recursos/escena_4.png",
-      "cifra_en_texto": true
+      "cifra_en_texto": true,
+      "wer": 0.0
     },
     {
       "frase": "El cacao, en cambio, creció por precio: vendió casi las mismas toneladas, pero su precio por kilo subió más de ciento cincuenta por ciento.",
       "cifra": "+153 %",
       "etiqueta": "Precio del cacao por kilo, 2015 a 2025",
       "imagen": "recursos/escena_5.png",
-      "cifra_en_texto": true
+      "cifra_en_texto": true,
+      "wer": 0.0
     },
     {
       "frase": "Y dependemos de pocos compradores: Estados Unidos y Países Bajos se llevan más de la mitad de todo.",
       "cifra": "55 %",
       "etiqueta": "Estados Unidos y Países Bajos, 2025",
       "imagen": "recursos/escena_6.png",
-      "cifra_en_texto": true
+      "cifra_en_texto": true,
+      "wer": 0.0
     },
     {
       "frase": "¿Y tu producto favorito? Explora los datos por año, producto y destino en el tablero interactivo. El enlace está en la publicación.",
       "cifra": "",
       "etiqueta": "Explora el tablero interactivo",
       "imagen": "recursos/escena_7.jpg",
-      "cifra_en_texto": true
+      "cifra_en_texto": true,
+      "wer": 0.0
     }
   ],
-  "hashtags": ["#Agroexportación", "#Perú", "#CienciaDeDatos", "#Python", "#DatosAbiertos", "#Arándanos"],
+  "hashtags": [
+    "#Agroexportación",
+    "#Perú",
+    "#CienciaDeDatos",
+    "#Python",
+    "#DatosAbiertos",
+    "#Arándanos"
+  ],
   "posts": {
     "linkedin": "¿El boom agroexportador del Perú vino de vender más o de vender más caro? 🍇🫐🥑\n\nPara la Tarea 3 de Python Intermedio armé un tablero interactivo con datos de UN Comtrade y del BCRP sobre nueve productos agrícolas peruanos entre 2010 y 2025.\n\nTres hallazgos:\n1️⃣ El arándano pasó de menos de US$ 1 millón en 2012 a US$ 2455 millones en 2025, y hoy es el primero de la canasta.\n2️⃣ Las frutas crecieron por volumen: el arándano envió 36 veces más toneladas entre 2015 y 2025 mientras su precio por kilo bajó 30 %. El cacao creció por precio: casi el mismo volumen, con un precio por kilo 153 % más alto.\n3️⃣ Estados Unidos y Países Bajos compran el 55 % de estos productos.\n\n📊 Tablero: [enlace al dashboard]\n💻 Código y datos: [enlace al repositorio]\n\nLa narración del reel es una voz generada con IA a partir de mi propia voz.",
     "x": "",

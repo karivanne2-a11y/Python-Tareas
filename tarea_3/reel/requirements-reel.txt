@@ -52,8 +52,10 @@ contourpy==1.3.3 ; python_full_version < '3.12'
     # via matplotlib
 contourpy==1.4.0 ; python_full_version >= '3.12'
     # via matplotlib
-ctranslate2==4.8.5
-    # via faster-whisper
+ctranslate2==4.8.4
+    # via
+    #   faster-whisper
+    #   tarea-3
 cuda-bindings==13.4.4 ; python_full_version < '3.15' and sys_platform == 'linux'
     # via torch
 cuda-pathfinder==1.8.5 ; python_full_version < '3.15' and sys_platform == 'linux'

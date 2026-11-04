@@ -25,7 +25,7 @@ AZUL = "#6DA7EC"
 plt.rcParams.update({
     "figure.facecolor": FONDO, "axes.facecolor": FONDO, "savefig.facecolor": FONDO,
     "text.color": TEXTO, "axes.labelcolor": SUAVE, "xtick.color": SUAVE, "ytick.color": SUAVE,
-    "axes.edgecolor": CAJA, "font.size": 22, "font.family": "DejaVu Sans",
+    "axes.edgecolor": CAJA, "font.size": 22, "font.family": "Arial",
     "axes.spines.top": False, "axes.spines.right": False, "axes.spines.left": False,
     "axes.grid": True, "grid.color": CAJA, "grid.linewidth": 1, "axes.axisbelow": True,
 })

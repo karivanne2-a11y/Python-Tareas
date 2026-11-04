@@ -64,7 +64,8 @@ def productos():
     # Destinos (sin el agregado Mundo ni agrupaciones)
     dest = d[d.partnerCode != 0].merge(paises(), on="partnerCode", how="left")
     dest = dest[dest.iso3.notna() & (dest.iso3.str.len() == 3)]
-    dest = dest[["anio", "hs", "producto", "partnerCode", "iso3", "pais_en", "valor_usd"]]
+    dest["peso_kg"] = dest.netWgt.where(dest.netWgt > 0)
+    dest = dest[["anio", "hs", "producto", "partnerCode", "iso3", "pais_en", "valor_usd", "peso_kg"]]
     dest = dest[dest.valor_usd > 0].sort_values(["anio", "producto", "valor_usd"], ascending=[True, True, False])
     dest.to_csv(PROC / "destinos.csv", index=False)
     return mundo, dest

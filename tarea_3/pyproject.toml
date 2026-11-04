@@ -14,6 +14,7 @@ dependencies = [
 
 [project.optional-dependencies]
 reel = [
+    "ctranslate2==4.8.4",
     "faster-whisper>=1.2.1",
     "jiwer>=4.0.0",
     "num2words>=0.5.14",

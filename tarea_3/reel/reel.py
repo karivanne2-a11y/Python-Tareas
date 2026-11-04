@@ -182,18 +182,48 @@ def _wer(referencia, audio16k):
 
 
 def subtitulos(narracion, guion):
-    """Palabras con tiempo; el guion va como contexto para que Whisper escriba bien los nombres propios."""
+    """Palabras con tiempo. El texto sale del guion; Whisper solo aporta los tiempos.
+
+    Así un error de Whisper (oír «dos mil dos» en vez de «dos mil doce», o repetir una frase)
+    no llega a los subtítulos: se alinean las palabras del guion con las que oyó Whisper y las
+    que no coinciden se reparten entre las vecinas según su largo.
+    """
+    import difflib
+
     contexto = " ".join(e["frase"] for e in guion["escenas"])
     segs, _ = _whisper().transcribe(_a16k(narracion.audio, narracion.sr), language="es",
                                     word_timestamps=True, initial_prompt=contexto)
+    oidas = [(w.start, w.end, w.word.strip()) for s in segs for w in s.words if w.word.strip()]
     palabras = []
-    for w in (w for s in segs for w in s.words if w.word.strip()):
-        # Whisper a veces parte "8.7" o "126%" en dos palabras: se pegan a la anterior
-        if palabras and re.match(r"^[.,%]", w.word.strip()):
-            ini, _, prev = palabras.pop()
-            palabras.append((ini, w.end, prev + w.word.strip()))
-        else:
-            palabras.append((w.start, w.end, w.word.strip()))
+    for e, (ini, fin) in zip(guion["escenas"], narracion.escenas):
+        guion_k = e["frase"].split()
+        oidas_k = [w for w in oidas if ini - 0.2 <= w[0] < fin + 0.2]
+        tiempos = [None] * len(guion_k)
+        m = difflib.SequenceMatcher(None, [_normalizar(w) for w in guion_k], [_normalizar(w[2]) for w in oidas_k], autojunk=False)
+        for a, b, n in m.get_matching_blocks():
+            for j in range(n):
+                tiempos[a + j] = oidas_k[b + j][:2]
+        # anclas en los bordes de la escena y relleno proporcional al largo de cada palabra
+        t0 = oidas_k[0][0] if oidas_k else ini
+        t1 = oidas_k[-1][1] if oidas_k else fin
+        k = 0
+        while k < len(guion_k):
+            if tiempos[k]:
+                k += 1
+                continue
+            j = k
+            while j < len(guion_k) and not tiempos[j]:
+                j += 1
+            desde = tiempos[k - 1][1] if k else t0
+            hasta = tiempos[j][0] if j < len(guion_k) else t1
+            largos = [len(w) + 1 for w in guion_k[k:j]]
+            t = desde
+            for q, l in zip(range(k, j), largos):
+                paso = (hasta - desde) * l / sum(largos)
+                tiempos[q] = (t, t + paso)
+                t += paso
+            k = j
+        palabras += [(a, b, w) for (a, b), w in zip(tiempos, guion_k)]
     narracion.palabras = palabras
     return palabras
 
@@ -223,7 +253,14 @@ def a_srt(narracion, ruta):
 
 # Video ---------------------------------------------------------------------
 
+ARIAL = {"normal": Path("C:/Windows/Fonts/arial.ttf"), "negrita": Path("C:/Windows/Fonts/arialbd.ttf")}
+
+
 def _fuente(nombre, tam, peso):
+    """Arial (normal hasta peso 500, negrita desde 600). Si no está instalada, Oswald y Public Sans."""
+    arial = ARIAL["negrita" if peso >= 600 else "normal"]
+    if arial.exists():
+        return ImageFont.truetype(str(arial), tam)
     ruta = FUENTES / f"{nombre}.ttf"
     if not ruta.exists():   # Oswald y Public Sans, de Google Fonts (licencia OFL)
         import urllib.request
@@ -254,17 +291,28 @@ def _ajustar(draw, texto, nombre, peso, ancho, maximo, minimo=80):
     return _fuente(nombre, minimo, peso)
 
 
+def _espaciado(d, xy, texto, fuente, color, extra, anchor="la"):
+    """Texto con espaciado entre letras (para títulos en mayúsculas); devuelve el ancho. Sin xy solo mide."""
+    ancho = sum(d.textlength(c, font=fuente) + extra for c in texto) - extra
+    if xy:
+        x, y = xy
+        for c in texto:
+            d.text((x, y), c, font=fuente, fill=color, anchor=anchor)
+            x += d.textlength(c, font=fuente) + extra
+    return ancho
+
+
 def _base(titulo, fuente_datos, autor):
     """Lo que no cambia en todo el video: título, aviso de IA y fuente."""
     img = Image.new("RGB", (ANCHO, ALTO), FONDO)
     d = ImageDraw.Draw(img)
-    d.text((MARGEN, 250), titulo.upper(), font=_fuente("PublicSans", 40, 800), fill=ACENTO)
+    _espaciado(d, (MARGEN, 250), titulo.upper(), _fuente("PublicSans", 36, 700), ACENTO, 4)
     aviso = "VOZ GENERADA CON IA"
-    f = _fuente("PublicSans", 28, 700)
-    x1 = MARGEN + d.textlength(aviso, font=f) + 36
-    d.rounded_rectangle((MARGEN, 315, x1, 365), radius=25, outline=SUAVE, width=2)
-    d.text((MARGEN + 18, 340), aviso, font=f, fill=SUAVE, anchor="lm")
-    pie = _fuente("PublicSans", 32, 500)
+    f = _fuente("PublicSans", 24, 500)
+    x1 = MARGEN + _espaciado(d, None, aviso, f, None, 2) + 40
+    d.rounded_rectangle((MARGEN, 315, x1, 361), radius=23, outline=SUAVE, width=2)
+    _espaciado(d, (MARGEN + 20, 338), aviso, f, SUAVE, 2, anchor="lm")
+    pie = _fuente("PublicSans", 30, 400)
     texto = f"{autor} · Fuente: {fuente_datos} · Gráficos: elaboración propia · Música: generada por código"
     for i, linea in enumerate(_envolver(d, texto, pie, ANCHO - 2 * MARGEN)):
         d.text((MARGEN, 1500 + i * 44), linea, font=pie, fill=SUAVE)
@@ -294,6 +342,21 @@ def musica(duracion, sr=48000, bpm=84):
     return (0.9 * out / np.abs(out).max()).astype(np.float32), sr
 
 
+def narracion_guardada(ruta, n_escenas):
+    """Recupera una narración ya hecha: los cortes entre escenas son los silencios exactos (ceros) que puso narrar()."""
+    audio, sr = sf.read(ruta, dtype="float32")
+    cero = np.abs(audio) < 1e-7
+    cambios = np.flatnonzero(np.diff(np.r_[0, cero.astype(np.int8), 0]))
+    silencios = [(i, f) for i, f in zip(cambios[::2], cambios[1::2]) if (f - i) / sr >= 0.3]
+    # el primero es el silencio inicial y el último el final; los del medio separan escenas
+    bordes = [f for _, f in silencios[:-1]]
+    finales = [i for i, _ in silencios[1:]]
+    escenas = [(b / sr, e / sr) for b, e in zip(bordes, finales)]
+    if len(escenas) != n_escenas:
+        raise ValueError(f"se detectaron {len(escenas)} escenas en {ruta}, se esperaban {n_escenas}")
+    return Narracion(audio, sr, escenas)
+
+
 def narracion_muda(guion, palabras_por_seg=2.6, sr=24000):
     """Tiempos estimados (sin voz) para revisar diseño y duración antes de correr el TTS."""
     escenas, palabras, t = [], [], INICIO
@@ -308,26 +371,80 @@ def narracion_muda(guion, palabras_por_seg=2.6, sr=24000):
     return Narracion(audio, sr, escenas, palabras)
 
 
+CONTEO, BARRIDO = 0.9, 1.1   # segundos que tarda la cifra en contar y el gráfico en aparecer
+PASOS_CONTEO = 18
+
+
+def _suave(p):
+    p = min(1.0, max(0.0, p))
+    return 1 - (1 - p) ** 3
+
+
+def _cifra_en(cifra, p):
+    """La cifra a mitad de su conteo: «US$ 2,455 M» con p = 0.5 es «US$ 1,228 M»."""
+    m = re.search(r"\d[\d,]*", cifra)
+    if not m or p >= 1:
+        return cifra
+    n = int(m.group().replace(",", ""))
+    v = round(n * p)
+    txt = f"{v:,}" if "," in m.group() else str(v)
+    return cifra[:m.start()] + txt + cifra[m.end():]
+
+
 def _escena_con_imagen(e):
-    """Cifra y etiqueta arriba; el gráfico ocupa el resto del espacio hasta los subtítulos."""
-    capa = Image.new("RGBA", (ANCHO, ALTO), (0, 0, 0, 0))
-    d = ImageDraw.Draw(capa)
+    """Cifra y etiqueta arriba y el gráfico debajo, separados para poder animarlos.
+
+    Devuelve un dict: textos (una capa por paso del conteo), la imagen y dónde va.
+    """
+    tmp = ImageDraw.Draw(Image.new("RGBA", (1, 1)))
     ancho = ANCHO - 2 * MARGEN
-    y = 400
-    if e.get("cifra"):
-        f = _ajustar(d, e["cifra"], "Oswald", 700, ancho, 170)
-        d.text((MARGEN, y), e["cifra"], font=f, fill=ACENTO, anchor="lt")
-        y += d.textbbox((0, 0), e["cifra"], font=f, anchor="lt")[3] + 18
-    fe = _fuente("PublicSans", 46 if e.get("cifra") else 64, 600)
-    for linea in _envolver(d, e["etiqueta"], fe, ancho):
-        d.text((MARGEN, y), linea, font=fe, fill=TEXTO, anchor="lt")
-        y += int(fe.size * 1.25)
-    caja = (MARGEN - 30, y + 20, ANCHO - MARGEN + 30, 1250)   # hasta donde empiezan los subtítulos
+    f = _ajustar(tmp, e["cifra"], "Oswald", 700, ancho, 150) if e.get("cifra") else None
+    fe = _fuente("PublicSans", 44 if e.get("cifra") else 60, 400 if e.get("cifra") else 700)
+    lineas = _envolver(tmp, e["etiqueta"], fe, ancho)
+    alto_cifra = tmp.textbbox((0, 0), e["cifra"], font=f, anchor="lt")[3] + 18 if f else 0
+    y0, alto_txt = 400, alto_cifra + len(lineas) * int(fe.size * 1.25)
+
+    def capa_texto(p):
+        capa = Image.new("RGBA", (ANCHO, alto_txt + 10), (0, 0, 0, 0))
+        d = ImageDraw.Draw(capa)
+        y = 0
+        if f:
+            d.text((MARGEN, y), _cifra_en(e["cifra"], p), font=f, fill=ACENTO, anchor="lt")
+            y += alto_cifra
+        for linea in lineas:
+            d.text((MARGEN, y), linea, font=fe, fill=TEXTO, anchor="lt")
+            y += int(fe.size * 1.25)
+        return capa
+
+    textos = [capa_texto(k / PASOS_CONTEO) for k in range(PASOS_CONTEO + 1)] if f else [capa_texto(1)]
+    caja = (MARGEN - 30, y0 + alto_txt + 20, ANCHO - MARGEN + 30, 1250)   # hasta donde empiezan los subtítulos
     img = Image.open(AQUI / e["imagen"]).convert("RGB")
     img.thumbnail((caja[2] - caja[0], caja[3] - caja[1]), Image.LANCZOS)
-    x = (ANCHO - img.width) // 2
-    capa.paste(img, (x, caja[1] + (caja[3] - caja[1] - img.height) // 2))
-    return capa
+    pos = ((ANCHO - img.width) // 2, caja[1] + (caja[3] - caja[1] - img.height) // 2)
+    return {"textos": textos, "y_texto": y0, "img": img, "pos": pos}
+
+
+def _pegar_animada(img, esc, t, ini, fin, a):
+    """Cifra que cuenta, gráfico que aparece de izquierda a derecha y un zoom lento durante la escena."""
+    dy = int(40 * (1 - a))
+    textos = esc["textos"]
+    txt = textos[min(len(textos) - 1, int(_suave((t - ini) / CONTEO) * (len(textos) - 1)))]
+    if a < 1:
+        txt = txt.copy()
+        txt.putalpha(txt.getchannel("A").point(lambda v: int(v * a)))
+    img.paste(txt, (0, esc["y_texto"] + dy), txt)
+
+    g = esc["img"]
+    z = 1 + 0.04 * min(1.0, max(0.0, (t - ini) / max(fin - ini, 1)))   # zoom de 1.00 a 1.04
+    if z > 1.001:
+        w, h = g.size
+        g = g.resize((int(w * z), int(h * z)), Image.BILINEAR)
+        dx, dz = (g.width - w) // 2, (g.height - h) // 2
+        g = g.crop((dx, dz, dx + w, dz + h))
+    r = _suave((t - ini - 0.15) / BARRIDO)
+    ancho = int(g.width * r)
+    if ancho > 0:
+        img.paste(g.crop((0, 0, ancho, g.height)), (esc["pos"][0], esc["pos"][1] + dy))
 
 
 def _escena(e):
@@ -363,10 +480,13 @@ def _cuadro(base, capas, narracion, t, bloques, fuente_sub):
     i = max([k for k, (ini, _) in enumerate(narracion.escenas) if ini - PAUSA <= t] or [0])
     a = min(1.0, max(0.0, (t - narracion.escenas[i][0] + PAUSA) / 0.35))
     capa = capas[i]
-    if a < 1:
-        capa = capa.copy()
-        capa.putalpha(capa.getchannel("A").point(lambda v: int(v * a)))
-    img.paste(capa, (0, int(40 * (1 - a))), capa)
+    if isinstance(capa, dict):
+        _pegar_animada(img, capa, t, *narracion.escenas[i], a)
+    else:
+        if a < 1:
+            capa = capa.copy()
+            capa.putalpha(capa.getchannel("A").point(lambda v: int(v * a)))
+        img.paste(capa, (0, int(40 * (1 - a))), capa)
 
     d = ImageDraw.Draw(img)
     # barra de avance arriba, como en las historias
@@ -396,7 +516,7 @@ def video(guion, narracion, ruta, fuente_datos, autor, volumen_musica=0.12):
     base = _base(guion["titulo"], fuente_datos, autor)
     capas = [_escena(e) for e in guion["escenas"]]
     bloques = _bloques(narracion.palabras)
-    fuente_sub = _fuente("PublicSans", 62, 800)
+    fuente_sub = _fuente("PublicSans", 58, 700)
     cmd = [FFMPEG, "-y", "-v", "error",
            "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{ANCHO}x{ALTO}", "-r", str(FPS), "-i", "-",
            "-i", str(wav), "-i", str(wav_musica),
@@ -418,7 +538,7 @@ def portada(guion, narracion, ruta, fuente_datos, autor, escena=1):
     """Un cuadro fijo para revisar el diseño o usar como miniatura."""
     t = narracion.escenas[escena][0] + 1.0
     img = _cuadro(_base(guion["titulo"], fuente_datos, autor), [_escena(e) for e in guion["escenas"]],
-                  narracion, t, _bloques(narracion.palabras), _fuente("PublicSans", 62, 800))
+                  narracion, t, _bloques(narracion.palabras), _fuente("PublicSans", 58, 700))
     img.save(ruta)
     return ruta
 

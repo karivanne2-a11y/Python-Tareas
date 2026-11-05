@@ -8,15 +8,21 @@
       "etiqueta": "Arándanos exportados en 2025",
       "imagen": "recursos/escena_1.png",
       "cifra_en_texto": true,
-      "wer": 0.0
+      "wer": 0.0,
+      "foto": "recursos/fotos/arandano.jpg",
+      "credito_foto": "Foto: Marc-Lautenbacher · CC BY-SA 4.0 · Wikimedia Commons",
+      "dato": "En 2012 eran apenas US$ 0,5 millones"
     },
     {
       "frase": "Nueve productos del campo pasaron de mil seiscientos a casi diez mil millones de dólares en quince años.",
       "cifra": "×6",
       "etiqueta": "Nueve productos agrícolas, 2010 a 2025",
-      "imagen": "recursos/escena_2.png",
+      "imagen": "recursos/dash_panorama.jpg",
       "cifra_en_texto": true,
-      "wer": 0.0
+      "wer": 0.0,
+      "foto": "recursos/fotos/palta.jpg",
+      "credito_foto": "Foto: Ivar Leidus · CC BY-SA 4.0 · Wikimedia Commons",
+      "dato": "De US$ 1,632 M en 2010 a US$ 9,827 M en 2025"
     },
     {
       "frase": "Arándano, uva y palta ya suman seis de cada diez dólares de esa canasta. En dos mil diez no llegaban a dos.",
@@ -24,7 +30,10 @@
       "etiqueta": "Arándano, uva y palta en 2025",
       "imagen": "recursos/escena_3.png",
       "cifra_en_texto": true,
-      "wer": 0.0
+      "wer": 0.0,
+      "foto": "recursos/fotos/uva.jpg",
+      "credito_foto": "Foto: Famartin · CC BY-SA 4.0 · Wikimedia Commons",
+      "dato": "En 2010 sumaban solo el 17 % de la canasta"
     },
     {
       "frase": "¿Vendimos más o más caro? Las frutas crecieron por volumen: el arándano envió treinta y seis veces más, aunque su precio bajó.",
@@ -32,7 +41,10 @@
       "etiqueta": "Toneladas de arándano, 2015 a 2025",
       "imagen": "recursos/escena_4.png",
       "cifra_en_texto": true,
-      "wer": 0.0
+      "wer": 0.0,
+      "foto": "recursos/fotos/arandano.jpg",
+      "credito_foto": "Foto: Marc-Lautenbacher · CC BY-SA 4.0 · Wikimedia Commons",
+      "dato": "Mientras tanto, su precio por kilo bajó 30 %"
     },
     {
       "frase": "El cacao, en cambio, creció por precio: vendió casi las mismas toneladas, pero su precio por kilo subió más de ciento cincuenta por ciento.",
@@ -40,7 +52,10 @@
       "etiqueta": "Precio del cacao por kilo, 2015 a 2025",
       "imagen": "recursos/escena_5.png",
       "cifra_en_texto": true,
-      "wer": 0.0
+      "wer": 0.0,
+      "foto": "recursos/fotos/cacao.jpg",
+      "credito_foto": "Foto: Keith Weller, USDA ARS · Public domain · Wikimedia Commons",
+      "dato": "Volumen: +3 %  ·  Precio por kilo: +153 %"
     },
     {
       "frase": "Y dependemos de pocos compradores: Estados Unidos y Países Bajos se llevan más de la mitad de todo.",
@@ -48,14 +63,20 @@
       "etiqueta": "Estados Unidos y Países Bajos, 2025",
       "imagen": "recursos/escena_6.png",
       "cifra_en_texto": true,
-      "wer": 0.0
+      "wer": 0.0,
+      "foto": "recursos/fotos/barco.jpg",
+      "credito_foto": "Foto: GuavaTrain · CC0 · Wikimedia Commons",
+      "dato": "Los envíos llegan a 97 países, pero dependen de dos"
     },
     {
-      "frase": "¿Y tu producto favorito? Explora los datos por año, producto y destino en el tablero interactivo. El enlace está en la publicación.",
+      "frase": "En resumen: el agro peruano vende más que nunca, pero depende de pocas frutas y de dos grandes compradores. Todos los datos están en el enlace.",
       "cifra": "",
-      "etiqueta": "Explora el tablero interactivo",
-      "imagen": "recursos/escena_7.jpg",
+      "etiqueta": "En resumen: más ventas, pero más dependencia",
+      "imagen": "recursos/dash_historia.jpg",
       "cifra_en_texto": true,
+      "foto": "recursos/fotos/barco.jpg",
+      "credito_foto": "Foto: GuavaTrain · CC0 · Wikimedia Commons",
+      "dato": "Datos: UN Comtrade y BCRP, 2010 a 2025",
       "wer": 0.0
     }
   ],

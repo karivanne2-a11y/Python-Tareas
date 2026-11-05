@@ -303,8 +303,8 @@ def _espaciado(d, xy, texto, fuente, color, extra, anchor="la"):
 
 
 def _base(titulo, fuente_datos, autor):
-    """Lo que no cambia en todo el video: título, aviso de IA y fuente."""
-    img = Image.new("RGB", (ANCHO, ALTO), FONDO)
+    """Lo que no cambia en todo el video: título, aviso de IA y fuente. Capa transparente sobre el fondo."""
+    img = Image.new("RGBA", (ANCHO, ALTO), (0, 0, 0, 0))
     d = ImageDraw.Draw(img)
     _espaciado(d, (MARGEN, 250), titulo.upper(), _fuente("PublicSans", 36, 700), ACENTO, 4)
     aviso = "VOZ GENERADA CON IA"
@@ -313,7 +313,8 @@ def _base(titulo, fuente_datos, autor):
     d.rounded_rectangle((MARGEN, 315, x1, 361), radius=23, outline=SUAVE, width=2)
     _espaciado(d, (MARGEN + 20, 338), aviso, f, SUAVE, 2, anchor="lm")
     pie = _fuente("PublicSans", 30, 400)
-    texto = f"{autor} · Fuente: {fuente_datos} · Gráficos: elaboración propia · Música: generada por código"
+    texto = (f"{autor} · Fuente: {fuente_datos} · Gráficos: elaboración propia · "
+             "Fotos: Wikimedia Commons · Música: generada por código")
     for i, linea in enumerate(_envolver(d, texto, pie, ANCHO - 2 * MARGEN)):
         d.text((MARGEN, 1500 + i * 44), linea, font=pie, fill=SUAVE)
     return img
@@ -354,6 +355,24 @@ def narracion_guardada(ruta, n_escenas):
     escenas = [(b / sr, e / sr) for b, e in zip(bordes, finales)]
     if len(escenas) != n_escenas:
         raise ValueError(f"se detectaron {len(escenas)} escenas en {ruta}, se esperaban {n_escenas}")
+    return Narracion(audio, sr, escenas)
+
+
+def renarrar(voz, guion, narracion, k, velocidad=1.0):
+    """Vuelve a narrar solo la escena k (por ejemplo, si cambió su frase) y la inserta en la narración guardada."""
+    e = guion["escenas"][k]
+    w = np.asarray(voz.decir([e["frase"]])[0], np.float32)
+    if velocidad != 1:
+        w = _acelerar(w, voz.sr, velocidad)
+    if voz.sr != narracion.sr:
+        w = np.interp(np.arange(0, len(w), voz.sr / narracion.sr), np.arange(len(w)), w).astype(np.float32)
+    e["wer"] = _wer(e["frase"], _a16k(w, narracion.sr))
+    sr = narracion.sr
+    ini, fin = narracion.escenas[k]
+    audio = np.concatenate([narracion.audio[:int(ini * sr)], w, narracion.audio[int(fin * sr):]])
+    delta = len(w) / sr - (fin - ini)
+    escenas = [(a, b) if j < k else (ini, ini + len(w) / sr) if j == k else (a + delta, b + delta)
+               for j, (a, b) in enumerate(narracion.escenas)]
     return Narracion(audio, sr, escenas)
 
 
@@ -400,9 +419,12 @@ def _escena_con_imagen(e):
     ancho = ANCHO - 2 * MARGEN
     f = _ajustar(tmp, e["cifra"], "Oswald", 700, ancho, 150) if e.get("cifra") else None
     fe = _fuente("PublicSans", 44 if e.get("cifra") else 60, 400 if e.get("cifra") else 700)
+    fd = _fuente("PublicSans", 34, 400)
     lineas = _envolver(tmp, e["etiqueta"], fe, ancho)
+    datos = _envolver(tmp, e["dato"], fd, ancho) if e.get("dato") else []
     alto_cifra = tmp.textbbox((0, 0), e["cifra"], font=f, anchor="lt")[3] + 18 if f else 0
-    y0, alto_txt = 400, alto_cifra + len(lineas) * int(fe.size * 1.25)
+    y0 = 400
+    alto_txt = alto_cifra + len(lineas) * int(fe.size * 1.25) + (10 + len(datos) * int(fd.size * 1.3) if datos else 0)
 
     def capa_texto(p):
         capa = Image.new("RGBA", (ANCHO, alto_txt + 10), (0, 0, 0, 0))
@@ -414,14 +436,58 @@ def _escena_con_imagen(e):
         for linea in lineas:
             d.text((MARGEN, y), linea, font=fe, fill=TEXTO, anchor="lt")
             y += int(fe.size * 1.25)
+        if datos:   # dato de contexto, más chico; la raya naranja lo separa de la etiqueta
+            y += 10
+            d.rectangle((MARGEN, y + 4, MARGEN + 5, y + len(datos) * int(fd.size * 1.3) - 8), fill=ACENTO)
+            for linea in datos:
+                d.text((MARGEN + 22, y), linea, font=fd, fill=SUAVE, anchor="lt")
+                y += int(fd.size * 1.3)
         return capa
 
     textos = [capa_texto(k / PASOS_CONTEO) for k in range(PASOS_CONTEO + 1)] if f else [capa_texto(1)]
-    caja = (MARGEN - 30, y0 + alto_txt + 20, ANCHO - MARGEN + 30, 1250)   # hasta donde empiezan los subtítulos
+    caja = (MARGEN - 30, y0 + alto_txt + 24, ANCHO - MARGEN + 30, 1250)   # hasta donde empiezan los subtítulos
     img = Image.open(AQUI / e["imagen"]).convert("RGB")
-    img.thumbnail((caja[2] - caja[0], caja[3] - caja[1]), Image.LANCZOS)
+    # ocupa todo el espacio disponible (las capturas del dashboard se amplían hasta 1.6 veces)
+    s = min((caja[2] - caja[0]) / img.width, (caja[3] - caja[1]) / img.height, 1.6)
+    img = img.resize((int(img.width * s), int(img.height * s)), Image.LANCZOS)
+    # esquinas redondeadas: el gráfico queda como una tarjeta sobre la foto
+    mascara = Image.new("L", img.size, 0)
+    ImageDraw.Draw(mascara).rounded_rectangle((0, 0, img.width - 1, img.height - 1), radius=24, fill=255)
+    img = img.convert("RGBA")
+    img.putalpha(mascara)
     pos = ((ANCHO - img.width) // 2, caja[1] + (caja[3] - caja[1] - img.height) // 2)
-    return {"textos": textos, "y_texto": y0, "img": img, "pos": pos}
+    credito = None
+    if e.get("credito_foto"):
+        fc = _fuente("PublicSans", 24, 400)
+        credito = Image.new("RGBA", (ANCHO, 40), (0, 0, 0, 0))
+        ImageDraw.Draw(credito).text((ANCHO - MARGEN, 4), e["credito_foto"], font=fc, fill=SUAVE, anchor="ra")
+    return {"textos": textos, "y_texto": y0, "img": img, "pos": pos, "credito": credito}
+
+
+ZOOM_FONDO = 0.06
+
+
+def _fondo(e):
+    """Foto de la escena recortada a 9:16, desenfocada y oscurecida para que el texto se lea; o el color de fondo."""
+    from PIL import ImageFilter
+    w, h = int(ANCHO * (1 + ZOOM_FONDO)), int(ALTO * (1 + ZOOM_FONDO))
+    if not e.get("foto"):
+        return Image.new("RGB", (w, h), FONDO)
+    foto = Image.open(AQUI / e["foto"]).convert("RGB")
+    s = max(w / foto.width, h / foto.height)
+    foto = foto.resize((int(foto.width * s) + 1, int(foto.height * s) + 1), Image.LANCZOS)
+    x, y = (foto.width - w) // 2, (foto.height - h) // 2
+    foto = foto.crop((x, y, x + w, y + h)).filter(ImageFilter.GaussianBlur(3))
+    return Image.blend(foto, Image.new("RGB", (w, h), FONDO), 0.70)
+
+
+def _fondo_en(fondo, q):
+    """Zoom lento: q = 0 muestra la foto completa y q = 1 un 6 % más cerca."""
+    W, H = fondo.size
+    z = 1 + ZOOM_FONDO * min(1.0, max(0.0, q))
+    w, h = int(W / z), int(H / z)
+    x, y = (W - w) // 2, (H - h) // 2
+    return fondo.crop((x, y, x + w, y + h)).resize((ANCHO, ALTO), Image.BILINEAR)
 
 
 def _pegar_animada(img, esc, t, ini, fin, a):
@@ -444,7 +510,14 @@ def _pegar_animada(img, esc, t, ini, fin, a):
     r = _suave((t - ini - 0.15) / BARRIDO)
     ancho = int(g.width * r)
     if ancho > 0:
-        img.paste(g.crop((0, 0, ancho, g.height)), (esc["pos"][0], esc["pos"][1] + dy))
+        trozo = g.crop((0, 0, ancho, g.height))
+        img.paste(trozo, (esc["pos"][0], esc["pos"][1] + dy), trozo)
+    if esc.get("credito"):
+        cr = esc["credito"]
+        if a < 1:
+            cr = cr.copy()
+            cr.putalpha(cr.getchannel("A").point(lambda v: int(v * a)))
+        img.paste(cr, (0, 1448), cr)
 
 
 def _escena(e):
@@ -474,11 +547,20 @@ def _escena(e):
     return capa
 
 
-def _cuadro(base, capas, narracion, t, bloques, fuente_sub):
-    img = base.copy()
+def _cuadro(base, capas, narracion, t, bloques, fuente_sub, fondos=None):
     # escena actual, con una entrada suave (aparece y sube) en sus primeros 0.35 s
     i = max([k for k, (ini, _) in enumerate(narracion.escenas) if ini - PAUSA <= t] or [0])
     a = min(1.0, max(0.0, (t - narracion.escenas[i][0] + PAUSA) / 0.35))
+    if fondos:
+        # fondo de la escena con zoom lento; al cambiar de escena, fundido con el anterior
+        ini, fin = narracion.escenas[i]
+        img = _fondo_en(fondos[i], (t - ini + PAUSA) / (fin - ini + 2 * PAUSA))
+        if a < 1 and i > 0:
+            pini, pfin = narracion.escenas[i - 1]
+            img = Image.blend(_fondo_en(fondos[i - 1], (t - pini + PAUSA) / (pfin - pini + 2 * PAUSA)), img, a)
+    else:
+        img = Image.new("RGB", (ANCHO, ALTO), FONDO)
+    img.paste(base, (0, 0), base)
     capa = capas[i]
     if isinstance(capa, dict):
         _pegar_animada(img, capa, t, *narracion.escenas[i], a)
@@ -515,6 +597,7 @@ def video(guion, narracion, ruta, fuente_datos, autor, volumen_musica=0.12):
     sf.write(wav_musica, *musica(narracion.duracion))
     base = _base(guion["titulo"], fuente_datos, autor)
     capas = [_escena(e) for e in guion["escenas"]]
+    fondos = [_fondo(e) for e in guion["escenas"]]
     bloques = _bloques(narracion.palabras)
     fuente_sub = _fuente("PublicSans", 58, 700)
     cmd = [FFMPEG, "-y", "-v", "error",
@@ -528,7 +611,7 @@ def video(guion, narracion, ruta, fuente_datos, autor, volumen_musica=0.12):
            "-shortest", "-movflags", "+faststart", str(ruta)]
     proc = subprocess.Popen(cmd, stdin=subprocess.PIPE)
     for k in range(int(narracion.duracion * FPS)):
-        proc.stdin.write(_cuadro(base, capas, narracion, k / FPS, bloques, fuente_sub).tobytes())
+        proc.stdin.write(_cuadro(base, capas, narracion, k / FPS, bloques, fuente_sub, fondos).tobytes())
     proc.stdin.close()
     proc.wait()
     return ruta
@@ -538,7 +621,8 @@ def portada(guion, narracion, ruta, fuente_datos, autor, escena=1):
     """Un cuadro fijo para revisar el diseño o usar como miniatura."""
     t = narracion.escenas[escena][0] + 1.0
     img = _cuadro(_base(guion["titulo"], fuente_datos, autor), [_escena(e) for e in guion["escenas"]],
-                  narracion, t, _bloques(narracion.palabras), _fuente("PublicSans", 58, 700))
+                  narracion, t, _bloques(narracion.palabras), _fuente("PublicSans", 58, 700),
+                  [_fondo(e) for e in guion["escenas"]])
     img.save(ruta)
     return ruta
 

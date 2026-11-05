@@ -15,6 +15,8 @@ p = argparse.ArgumentParser()
 p.add_argument("--voz", help="15 a 25 s de tu voz: wav, m4a, ogg o mp3")
 p.add_argument("--muda", action="store_true", help="sin TTS: tiempos estimados, para revisar el diseño")
 p.add_argument("--reusar", action="store_true", help="usa la narración ya generada (reel.wav) y solo rehace subtítulos y video")
+p.add_argument("--renarrar", type=int, action="append", help="con --voz y --reusar: vuelve a narrar solo esa escena (empieza en 1)")
+p.add_argument("--video", default="reel.mp4", help="nombre del video de salida (útil si reel.mp4 está abierto en un reproductor)")
 p.add_argument("--autor", default="Karen Macedo")
 p.add_argument("--fuente", default="UN Comtrade y BCRP")
 p.add_argument("--device", default="cpu", help="cpu, mps (Mac) o cuda")
@@ -44,11 +46,21 @@ if a.muda:
 if a.reusar:
     narracion = reel.narracion_guardada(salidas / "reel.wav", len(guion["escenas"]))
     reel._reloj(f"narración reutilizada: {narracion.duracion:.1f} s, {len(narracion.escenas)} escenas", t0)
+    if a.renarrar:
+        if not a.voz:
+            p.error("--renarrar necesita --voz")
+        voz = reel.Voz(a.voz, modelo=a.tts, device=a.device)
+        for k in a.renarrar:
+            narracion = reel.renarrar(voz, guion, narracion, k - 1, a.velocidad)
+            reel._reloj(f"escena {k} narrada de nuevo; WER {guion['escenas'][k - 1]['wer']:.2f}", t0)
+        archivo_guion.write_text(json.dumps(guion, ensure_ascii=False, indent=2), encoding="utf-8")
+        reel.sf.write(salidas / "reel.wav", narracion.audio, narracion.sr)
+        reel._reloj(f"narración: {narracion.duracion:.1f} s", t0)
     reel.subtitulos(narracion, guion)
     reel.a_srt(narracion, salidas / "subtitulos.srt")
     reel.portada(guion, narracion, salidas / "portada.png", a.fuente, a.autor)
-    reel.video(guion, narracion, salidas / "reel.mp4", a.fuente, a.autor)
-    reel._reloj(f"listo: {salidas / 'reel.mp4'}", t0)
+    reel.video(guion, narracion, salidas / a.video, a.fuente, a.autor)
+    reel._reloj(f"listo: {salidas / a.video}", t0)
     raise SystemExit
 
 if a.motor == "voxcpm":

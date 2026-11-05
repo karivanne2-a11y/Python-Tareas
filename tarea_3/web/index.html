@@ -95,7 +95,7 @@ select {
 .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; min-width: 0; }
 .card.full { grid-column: 1 / -1; }
-.card h2 { font-size: 16px; margin: 0 0 2px; }
+.card h3 { font-size: 16px; margin: 0 0 2px; }
 .card .sub { font-size: 13px; color: var(--ink-2); margin: 0 0 8px; }
 .card .pista { font-size: 12px; color: var(--muted); margin: 6px 0 0; }
 .plot { width: 100%; height: 340px; }
@@ -131,7 +131,70 @@ footer { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--grid);
 .destello { animation: destello 1.2s ease-out; }
 @keyframes destello { from { box-shadow: 0 0 0 4px var(--s1); } to { box-shadow: 0 0 0 0 transparent; } }
 
+/* --- Capítulos */
+.cap { padding-top: 28px; margin-top: 12px; }
+.cap + .cap { border-top: 1px solid var(--grid); margin-top: 40px; }
+.cap-tit { margin: 0 0 16px; max-width: 760px; }
+.cap-tit .num { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--s1); font-weight: 700; }
+.cap-tit h2 { font-size: clamp(22px, 3vw, 28px); margin: 4px 0 6px; line-height: 1.2; }
+.cap-tit p { margin: 0; color: var(--ink-2); }
+
+/* --- Índice fijo en la esquina: número romano siempre visible, nombre al pasar el cursor o en el capítulo actual */
+.indice {
+  position: fixed; right: 14px; top: 50%; transform: translateY(-50%); z-index: 30;
+  display: flex; flex-direction: column; gap: 6px; align-items: flex-end;
+}
+.indice a {
+  display: flex; align-items: center; gap: 8px; flex-direction: row-reverse; text-decoration: none;
+  color: var(--ink-2); font-size: 13px;
+}
+.indice b {
+  width: 38px; height: 30px; display: grid; place-items: center; border-radius: 8px; font-size: 12px; letter-spacing: .02em;
+  background: var(--surface); border: 1px solid var(--axis); color: var(--ink-2); transition: background .2s, color .2s, border-color .2s;
+}
+.indice span {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 4px 10px; white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(0,0,0,.08); opacity: 0; transform: translateX(6px); pointer-events: none; transition: opacity .2s, transform .2s;
+}
+.indice a:hover span, .indice a:focus-visible span, .indice a.on span { opacity: 1; transform: none; }
+.indice a:hover b { border-color: var(--s1); color: var(--ink); }
+.indice a.on b { background: var(--s1); border-color: var(--s1); color: #fff; }
+.indice a.on span { color: var(--ink); font-weight: 600; }
+.indice .arriba b { border-style: dashed; }
+.progreso { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 40; background: transparent; }
+.progreso i { display: block; height: 100%; width: 0; background: var(--s2); transition: width .1s linear; }
+@media (min-width: 761px) and (max-width: 1340px) {
+  .wrap { padding-right: 70px; }
+  .indice a.on span { opacity: 0; transform: translateX(6px); }   /* sin espacio: el nombre aparece solo al pasar el cursor */
+  .indice a.on:hover span { opacity: 1; transform: none; }
+}
+
+/* --- Scrollytelling: el gráfico queda fijo y los pasos pasan a su lado */
+.scrolly { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(260px, 1fr); gap: 24px; align-items: start; }
+.escenario { position: sticky; top: 150px; }
+.escenario .plot { height: 420px; }
+.pasos { display: grid; gap: 46vh; padding: 8vh 0 40vh; }
+.paso {
+  background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--axis); border-radius: 12px;
+  padding: 18px 20px; opacity: .45; transition: opacity .35s, border-color .35s, transform .35s; transform: translateY(8px);
+}
+.paso.on { opacity: 1; border-left-color: var(--s1); transform: none; box-shadow: 0 10px 30px rgba(0,0,0,.07); }
+.paso .k { margin: 0 0 6px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--s1); font-weight: 700; }
+.paso h4 { margin: 0 0 8px; font-size: 18px; line-height: 1.25; }
+.paso p { margin: 0 0 10px; color: var(--ink-2); }
+.paso p:last-child { margin-bottom: 0; }
+
 @media (max-width: 760px) {
+  .indice { top: auto; bottom: 12px; right: 50%; transform: translateX(50%); flex-direction: row; gap: 4px;
+            background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 5px; box-shadow: 0 6px 20px rgba(0,0,0,.12); }
+  .indice span { display: none; }
+  .indice b { width: 34px; height: 28px; font-size: 11px; }
+  .scrolly { grid-template-columns: 1fr; }
+  .escenario { top: 0; z-index: 2; }
+  .escenario .plot { height: 260px; }
+  .pasos { gap: 60vh; padding: 48vh 0 30vh; position: relative; z-index: 3; }
+  .paso, .paso.on { opacity: 1; transform: none; box-shadow: 0 10px 30px rgba(0,0,0,.18); }
+  footer { padding-bottom: 70px; }
   .grid { grid-template-columns: 1fr; }
   .plot { height: 300px; } .plot.alto { height: 320px; }
   .barra { position: static; }
@@ -142,7 +205,7 @@ footer { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--grid);
 </head>
 <body>
 <div class="wrap">
-<header>
+<header id="inicio">
   <p class="kicker">Tarea 3 · Python Intermedio · Del dato a la historia</p>
   <h1>El boom agroexportador del Perú, 2010–2025</h1>
   <p class="pregunta"><b>Pregunta:</b> ¿qué productos y qué mercados explican el crecimiento de la agroexportación peruana, y ese crecimiento vino de vender <i>más</i> o de vender <i>más caro</i>?</p>
@@ -154,8 +217,19 @@ footer { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--grid);
   </div>
 </header>
 
+<aside class="indice" aria-label="Capítulos">
+  <a href="#cap1" data-cap="cap1"><b>I</b><span>Panorama</span></a>
+  <a href="#cap2" data-cap="cap2"><b>II</b><span>Productos</span></a>
+  <a href="#cap3" data-cap="cap3"><b>III</b><span>Mercados</span></a>
+  <a href="#cap4" data-cap="cap4"><b>IV</b><span>La historia</span></a>
+  <a href="#cap5" data-cap="cap5"><b>V</b><span>Contexto</span></a>
+  <a href="#cap6" data-cap="cap6"><b>VI</b><span>Hallazgos</span></a>
+  <a href="#cap7" data-cap="cap7"><b>VII</b><span>Método</span></a>
+  <a href="#inicio" class="arriba" aria-label="Volver al inicio"><b>↑</b><span>Inicio</span></a>
+</aside>
+<div class="progreso" aria-hidden="true"><i id="barra-progreso"></i></div>
+
 <div class="barra">
-  <nav aria-label="Secciones"><a href="#tablero">Tablero</a><a href="#productos">Productos</a><a href="#mercados">Mercados</a><a href="#hallazgos">Hallazgos</a><a href="#metodo">Metodología y fuentes</a><a href="#limites">Limitaciones</a></nav>
   <div class="filtros" id="tablero" role="group" aria-label="Filtros del tablero">
     <label>Producto
       <select id="f-prod"></select>
@@ -182,67 +256,111 @@ footer { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--grid);
   </div>
 </div>
 
-<div class="kpis" id="kpis" aria-live="polite"></div>
+<section class="cap" id="cap1">
+  <div class="cap-tit"><span class="num">Capítulo I</span><h2>El panorama</h2>
+    <p>Cuánto exporta el Perú de estos nueve productos y cómo cambió en el tiempo. Los filtros de arriba cambian todo el tablero.</p></div>
+  <div class="kpis" id="kpis" aria-live="polite"></div>
+  <div class="grid">
+    <div class="card full">
+      <h3 id="t-serie">Evolución</h3>
+      <p class="sub" id="s-serie"></p>
+      <div class="plot" id="g-serie"></div>
+      <details><summary>Ver tabla de datos</summary><div class="tabla-scroll" id="tabla-serie"></div></details>
+    </div>
+  </div>
+</section>
 
-<div class="grid">
-  <div class="card full">
-    <h2 id="t-serie">Evolución</h2>
-    <p class="sub" id="s-serie"></p>
-    <div class="plot" id="g-serie"></div>
-    <details><summary>Ver tabla de datos</summary><div class="tabla-scroll" id="tabla-serie"></div></details>
+<section class="cap" id="cap2">
+  <div class="cap-tit"><span class="num">Capítulo II</span><h2>¿Vender más o vender más caro?</h2>
+    <p>El valor exportado crece por dos razones: se envían más toneladas o se cobra más por kilo. Aquí se separan las dos.</p></div>
+  <div class="grid">
+    <div class="card">
+      <h3>¿Más volumen o mejor precio?</h3>
+      <p class="sub" id="s-iv"></p>
+      <div class="plot" id="g-iv"></div>
+    </div>
+    <div class="card" id="productos">
+      <h3 id="t-burb">Mapa del crecimiento</h3>
+      <p class="sub" id="s-burb"></p>
+      <div class="plot" id="g-burb"></div>
+      <p class="pista">Haz clic en una burbuja para elegir ese producto.</p>
+    </div>
+    <div class="card full">
+      <h3 id="t-tabla">Los nueve productos</h3>
+      <p class="sub" id="s-tabla">Haz clic en un encabezado para ordenar y en una fila para elegir el producto.</p>
+      <div class="tabla-ancha"><table id="tabla-prod"></table></div>
+    </div>
   </div>
-  <div class="card">
-    <h2>¿Más volumen o mejor precio?</h2>
-    <p class="sub" id="s-iv"></p>
-    <div class="plot" id="g-iv"></div>
-  </div>
-  <div class="card" id="productos">
-    <h2 id="t-burb">Mapa del crecimiento</h2>
-    <p class="sub" id="s-burb"></p>
-    <div class="plot" id="g-burb"></div>
-    <p class="pista">Haz clic en una burbuja para elegir ese producto.</p>
-  </div>
-  <div class="card full">
-    <h2 id="t-tabla">Los nueve productos</h2>
-    <p class="sub" id="s-tabla">Haz clic en un encabezado para ordenar y en una fila para elegir el producto.</p>
-    <div class="tabla-ancha"><table id="tabla-prod"></table></div>
-  </div>
-  <div class="card full" id="mercados">
-    <h2 id="t-mapa">¿A dónde va?</h2>
-    <p class="sub" id="s-mapa"></p>
-    <div class="plot alto" id="g-mapa"></div>
-    <p class="pista">Haz clic en un país para ver solo lo que compra. Usa «▶ Animar años» para ver cómo se abrieron los mercados.</p>
-  </div>
-  <div class="card">
-    <h2 id="t-dest">Principales destinos</h2>
-    <p class="sub" id="s-dest"></p>
-    <div class="plot" id="g-dest"></div>
-  </div>
-  <div class="card">
-    <h2 id="t-rank">Ranking de productos</h2>
-    <p class="sub" id="s-rank"></p>
-    <div class="plot" id="g-rank"></div>
-  </div>
-  <div class="card">
-    <h2>Peso del agro en todas las exportaciones</h2>
-    <p class="sub">Capítulos HS 01–24 (agropecuario y alimentos) como % del total exportado por el Perú. No depende de los filtros de producto ni de mercado.</p>
-    <div class="plot" id="g-agro"></div>
-  </div>
-  <div class="card">
-    <h2>Validación: Comtrade frente al BCRP</h2>
-    <p class="sub">Exportaciones totales del Perú en millones de US$. Las dos fuentes siguen la misma tendencia; la diferencia anual va de −12 % a +12 %.</p>
-    <div class="plot" id="g-valid"></div>
-  </div>
-</div>
+</section>
 
-<section class="texto" id="hallazgos">
-  <h2>Tres hallazgos</h2>
+<section class="cap" id="cap3">
+  <div class="cap-tit"><span class="num">Capítulo III</span><h2>¿A dónde va?</h2>
+    <p>Los mercados que compran la agroexportación peruana. Haz clic en un país o en una barra para ver solo ese mercado.</p></div>
+  <div class="grid">
+    <div class="card full" id="mercados">
+      <h3 id="t-mapa">¿A dónde va?</h3>
+      <p class="sub" id="s-mapa"></p>
+      <div class="plot alto" id="g-mapa"></div>
+      <p class="pista">Haz clic en un país para ver solo lo que compra. Usa «▶ Animar años» para ver cómo se abrieron los mercados.</p>
+    </div>
+    <div class="card">
+      <h3 id="t-dest">Principales destinos</h3>
+      <p class="sub" id="s-dest"></p>
+      <div class="plot" id="g-dest"></div>
+    </div>
+    <div class="card">
+      <h3 id="t-rank">Ranking de productos</h3>
+      <p class="sub" id="s-rank"></p>
+      <div class="plot" id="g-rank"></div>
+    </div>
+  </div>
+</section>
+
+<section class="cap" id="cap4">
+  <div class="cap-tit"><span class="num">Capítulo IV</span><h2>La historia en cuatro pasos</h2>
+    <p>Baja despacio: el gráfico cambia con cada paso.</p></div>
+  <div class="scrolly">
+    <div class="escenario card"><h3 id="t-hist"></h3><p class="sub" id="s-hist"></p><div class="plot" id="g-hist"></div></div>
+    <div class="pasos">
+      <article class="paso" data-paso="0"><p class="k">Paso 1 · 2010–2025</p><h4>Una canasta que se multiplicó por seis</h4>
+        <p>En 2010 los nueve productos sumaban <b>US$ 1632 millones</b>. En 2025 llegaron a <b>US$ 9827 millones</b>. El salto más fuerte llegó después de 2020.</p></article>
+      <article class="paso" data-paso="1"><p class="k">Paso 2 · Productos</p><h4>El arándano pasó de cero al primer lugar</h4>
+        <p>En 2012 casi no se exportaba. En 2025 dejó <b>US$ 2455 millones</b>, más que la uva y la palta. Las otras líneas, en gris, crecen mucho más despacio.</p></article>
+      <article class="paso" data-paso="2"><p class="k">Paso 3 · Precio</p><h4>El cacao creció por precio, no por volumen</h4>
+        <p>Entre 2015 y 2025 vendió casi las mismas toneladas (<b>+3 %</b>), pero su precio por kilo subió <b>153 %</b>. Si el precio internacional baja, ese valor puede desaparecer.</p></article>
+      <article class="paso" data-paso="3"><p class="k">Paso 4 · Mercados</p><h4>Dos compradores se llevan más de la mitad</h4>
+        <p>Estados Unidos y Países Bajos pasaron de comprar el <b>51 %</b> en 2015 al <b>55 %</b> en 2025. Los envíos llegan a 97 países, pero dependen de pocos.</p>
+        <button type="button" class="btn" id="ir-mercados">Explorar los mercados →</button></article>
+    </div>
+  </div>
+</section>
+
+<section class="cap" id="cap5">
+  <div class="cap-tit"><span class="num">Capítulo V</span><h2>El contexto</h2>
+    <p>Qué tanto pesa el agro en todo lo que exporta el Perú, y qué tan confiables son los datos.</p></div>
+  <div class="grid">
+    <div class="card">
+      <h3>Peso del agro en todas las exportaciones</h3>
+      <p class="sub">Capítulos HS 01–24 (agropecuario y alimentos) como % del total exportado por el Perú. No depende de los filtros de producto ni de mercado.</p>
+      <div class="plot" id="g-agro"></div>
+    </div>
+    <div class="card">
+      <h3>Validación: Comtrade frente al BCRP</h3>
+      <p class="sub">Exportaciones totales del Perú en millones de US$. Las dos fuentes siguen la misma tendencia; la diferencia anual va de −12 % a +12 %.</p>
+      <div class="plot" id="g-valid"></div>
+    </div>
+  </div>
+</section>
+
+<section class="cap texto" id="cap6">
+  <div class="cap-tit"><span class="num">Capítulo VI</span><h2>Tres hallazgos</h2>
+    <p>Cada hallazgo tiene un botón que lleva al dato que lo respalda.</p></div>
   <div class="hallazgos" id="lista-hallazgos"></div>
 </section>
 
-<section class="texto" id="metodo">
-  <h2>Metodología y fuentes</h2>
-  <div class="cols">
+<section class="cap texto" id="cap7">
+  <div class="cap-tit"><span class="num">Capítulo VII</span><h2>Método, fuentes y limitaciones</h2></div>
+  <div class="cols" id="metodo">
     <div>
       <h3>Cómo se construyó</h3>
       <ol>
@@ -265,13 +383,10 @@ footer { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--grid);
       <ul><li>Se usó un asistente de IA para el código, el dashboard y la redacción. Las cifras se verificaron contra los datos procesados y el BCRP.</li></ul>
     </div>
   </div>
-</section>
-
-<section class="texto" id="limites">
-  <h2>Limitaciones</h2>
+  <h3 style="margin:24px 0 8px" id="limites">Limitaciones</h3>
   <div class="cols">
     <ul>
-      <li>Comtrade y el BCRP no coinciden exactamente: el total anual difiere entre −12 % y +12 % según el año, por diferencias de registro, revisiones y cobertura (ver el gráfico de validación). Las tendencias se mantienen, pero los niveles exactos deben leerse con cautela.</li>
+      <li>Comtrade y el BCRP no coinciden exactamente: el total anual difiere entre −12 % y +12 % según el año, por diferencias de registro, revisiones y cobertura (ver el capítulo V). Las tendencias se mantienen, pero los niveles exactos deben leerse con cautela.</li>
       <li>Las cifras de 2025 son las primeras que reportó el país y pueden revisarse.</li>
       <li>La quinua solo tiene código propio desde 2012, así que su serie empieza ese año.</li>
     </ul>
@@ -651,9 +766,86 @@ function controles() {
   if (IND[h.get("ind")]) estado.ind = h.get("ind");
 }
 
+// --- Capítulo IV: un solo gráfico que cambia con cada paso de la historia
+let pasoActual = -1;
+function historia(k) {
+  if (k === pasoActual) return;
+  pasoActual = k;
+  const L = base(), prods = PRODS, T = $("#t-hist"), S = $("#s-hist");
+  let trazas;
+  if (k === 0) {
+    const s = serie(CANASTA, TODOS);
+    T.textContent = "Los nueve productos, 2010–2025"; S.textContent = "Valor exportado, millones de US$.";
+    anualX(L, innerWidth < 760 ? 5 : 1); L.xaxis.tickangle = 0; L.bargap = 0.25; L.margin.t = 24;
+    trazas = [{ type: "bar", x: s.map(o => o.a), y: s.map(o => o.v), marker: { color: s.map(o => o.a === 2010 || o.a === 2025 ? css("--s1") : css("--other")) },
+      text: s.map(o => o.a === 2010 || o.a === 2025 ? fmt(o.v, 0) : ""), textposition: "outside", cliponaxis: false, textfont: { color: css("--ink"), size: 13 },
+      hovertemplate: "%{x}: %{y:,.0f} M US$<extra></extra>" }];
+  } else if (k === 1) {
+    T.textContent = "Cada producto por separado"; S.textContent = "Valor exportado, millones de US$. En azul, el arándano.";
+    anualX(L, 5); L.margin.r = 90; cruz(L);
+    const fin = (n) => enAnio(serie(n, TODOS), 2025)?.v;
+    trazas = prods.map(n => { const s = serie(n, TODOS), a = n === "Arándano";
+      return { x: s.map(o => o.a), y: s.map(o => o.v), mode: "lines", name: n, line: { color: a ? css("--s1") : css("--other"), width: a ? 3.5 : 1.5 },
+               hovertemplate: `${n}: %{y:,.0f} M US$<extra></extra>` }; });
+    L.annotations = ["Arándano", "Uva fresca", "Palta"].map(n => ({ x: 2025, y: fin(n), text: n, xanchor: "left", xshift: 6, showarrow: false,
+      font: { size: 12, color: n === "Arándano" ? css("--s1") : css("--ink-2") } }));
+  } else if (k === 2) {
+    const s = serie("Cacao en grano", TODOS).filter(o => o.a >= 2015), b = s[0];
+    T.textContent = "Cacao en grano: volumen frente a precio"; S.textContent = "Índice, 2015 = 100. El precio despegó; las toneladas, no.";
+    anualX(L, 2); L.margin.r = 74; cruz(L); L.yaxis.rangemode = "normal";
+    L.shapes = [{ type: "line", xref: "paper", x0: 0, x1: 1, y0: 100, y1: 100, line: { color: css("--axis"), width: 1, dash: "dot" } }];
+    const vol = s.map(o => 100 * o.t / b.t), pre = s.map(o => 100 * o.p / b.p);
+    L.annotations = [{ x: 2025, y: vol.at(-1), text: "Volumen", xanchor: "left", xshift: 6, showarrow: false, font: { color: css("--ink") } },
+                     { x: 2025, y: pre.at(-1), text: "Precio", xanchor: "left", xshift: 6, showarrow: false, font: { color: css("--ink") } }];
+    trazas = [{ x: s.map(o => o.a), y: vol, mode: "lines", name: "Volumen", line: { color: css("--s1"), width: 3 }, hovertemplate: "Volumen: %{y:.0f}<extra></extra>" },
+              { x: s.map(o => o.a), y: pre, mode: "lines", name: "Precio", line: { color: css("--s2"), width: 3 }, hovertemplate: "Precio: %{y:.0f}<extra></extra>" }];
+  } else {
+    T.textContent = "¿Quién compra? 2015 frente a 2025"; S.textContent = "% del valor de los nueve productos.";
+    const cuota = (a) => { const ds = destinos(CANASTA, a), tot = ds.reduce((x, o) => x + o.v, 0), g = (c) => 100 * (ds.find(o => o.c === c)?.v || 0) / tot;
+                           return { USA: g("USA"), NLD: g("NLD"), resto: 100 - g("USA") - g("NLD") }; };
+    const c = { 2015: cuota(2015), 2025: cuota(2025) }, anios = ["2015", "2025"];
+    L.barmode = "stack"; L.margin.l = 50; L.xaxis.ticksuffix = " %"; L.xaxis.range = [0, 100]; L.xaxis.autorange = false;
+    L.yaxis.gridcolor = "rgba(0,0,0,0)"; L.yaxis.type = "category"; L.bargap = 0.45;
+    L.showlegend = true; L.legend = { orientation: "h", y: 1.14, x: 0, font: { color: css("--ink-2") } };
+    const tr = (k2, nombre, color) => ({ type: "bar", orientation: "h", name: nombre, y: anios, x: anios.map(a => c[a][k2]), marker: { color, line: { color: css("--surface"), width: 2 } },
+      text: anios.map(a => fmt(c[a][k2], 0) + " %"), textposition: "inside", insidetextanchor: "middle", textfont: { color: k2 === "resto" ? css("--ink") : "#fff", size: 14 },
+      hovertemplate: `${nombre}: %{x:.1f} %<extra></extra>` });
+    trazas = [tr("USA", "Estados Unidos", css("--s1")), tr("NLD", "Países Bajos", css("--s2")), tr("resto", "Otros 95 países", css("--other"))];
+  }
+  Plotly.react("g-hist", trazas, L, CFG);
+}
+
+function navegacion() {
+  // con cada scroll: capítulo actual en el índice, paso actual del capítulo IV y barra de progreso
+  const enlaces = [...document.querySelectorAll(".indice a[data-cap]")];
+  const caps = [...document.querySelectorAll("section.cap")];
+  const pasos = [...document.querySelectorAll(".paso")];
+  const prog = $("#barra-progreso");
+  let pendiente = false;
+  const actualizar = () => {
+    pendiente = false;
+    const h = document.documentElement, medio = innerHeight / 2;
+    prog.style.width = (100 * h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight)) + "%";
+    const cap = caps.filter(s => s.getBoundingClientRect().top <= innerHeight * 0.4).at(-1);
+    enlaces.forEach(a => a.classList.toggle("on", !!cap && a.dataset.cap === cap.id));
+    // el paso más cercano al centro de la pantalla
+    let mejor = pasos[0], dist = Infinity;
+    for (const p of pasos) { const r = p.getBoundingClientRect(), d = Math.abs(r.top + r.height / 2 - medio); if (d < dist) { dist = d; mejor = p; } }
+    pasos.forEach(p => p.classList.toggle("on", p === mejor));
+    historia(+mejor.dataset.paso);
+  };
+  addEventListener("scroll", () => { if (!pendiente) { pendiente = true; setTimeout(actualizar, 60); } }, { passive: true });
+  addEventListener("resize", actualizar);
+  window.actualizarNavegacion = actualizar;   // también lo usan las pruebas
+  actualizar();
+  $("#ir-mercados").onclick = () => { estado = { ...DEF }; render(); $("#cap3").scrollIntoView({ behavior: "smooth" }); };
+}
+
 fetch("data/datos.json").then(r => r.json()).then(d => {
-  D = d; controles(); hallazgos(); render();
-  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);
+  D = d; controles(); hallazgos(); render(); navegacion();
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+    render(); const k = pasoActual; pasoActual = -1; historia(Math.max(0, k));
+  });
 });
 </script>
 </body>

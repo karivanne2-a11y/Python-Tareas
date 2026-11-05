@@ -12,6 +12,8 @@
 
 El proyecto sigue nueve productos emblemáticos de la agroexportación peruana: palta, arándano, uva fresca, espárrago fresco, mango, café verde, cítricos, cacao en grano y quinua. Para cada uno mide el valor exportado, el volumen, el precio implícito por kilo y los países de destino. Además separa el crecimiento del valor en un efecto volumen y un efecto precio, y muestra en un mapa a dónde va cada producto.
 
+**Cómo está organizado el dashboard:** siete capítulos (I Panorama · II Productos · III Mercados · IV La historia · V Contexto · VI Hallazgos · VII Método). Un índice fijo en la esquina marca el capítulo que estás leyendo y lleva a cualquiera de ellos. Una barra arriba muestra el avance de lectura. En el capítulo IV, *La historia en cuatro pasos*, el gráfico queda fijo y cambia a medida que bajas por la página (scrollytelling).
+
 **Qué se puede hacer en el dashboard:**
 - **Filtros:** producto, mercado de destino (147 países), rango de años e indicador (valor, volumen o precio por kilo).
 - **▶ Animar años:** recorre año a año el periodo elegido y actualiza el mapa, los KPIs y los gráficos.
@@ -58,6 +60,7 @@ Además, el peso del agro (capítulos HS 01–24) en las exportaciones totales d
 ![Dashboard: KPIs y evolución](web/assets/captura_1.jpg)
 ![Dashboard: mapa de destinos](web/assets/captura_2.jpg)
 ![Dashboard: volumen frente a precio, mapa del crecimiento y tabla](web/assets/captura_3.jpg)
+![Dashboard: capítulo IV, la historia en cuatro pasos](web/assets/captura_4.jpg)
 
 ## Limitaciones
 
@@ -120,13 +123,25 @@ uv run --extra reel python reel/hacer_reel.py --reusar                          
 En Windows, si `ctranslate2` o `torch` no cargan (`WinError 126`), falta el runtime de Visual C++. Instala el [Microsoft Visual C++ Redistributable](https://aka.ms/vs/17/release/vc_redist.x64.exe).
 
 Qué tiene el reel:
-- Dura 60 segundos, en formato vertical 1080 × 1920, con 7 escenas.
-- Cada escena trae su gráfico, que aparece con un barrido animado, y una cifra que cuenta hacia arriba. La última es una captura del mapa del dashboard.
+- Dura alrededor de 60 segundos, en formato vertical 1080 × 1920, con 7 escenas.
+- Cada escena combina una foto del producto o del transporte (de fondo, oscurecida y con un zoom lento) con un gráfico o una captura del dashboard. El gráfico aparece con un barrido animado, la cifra cuenta hacia arriba y debajo va un dato de contexto.
+- El cierre resume los hallazgos.
 - Los subtítulos se resaltan palabra por palabra. Su texto sale del guion y Whisper solo aporta los tiempos, así que un error de transcripción no llega a la pantalla.
 - Lleva el aviso «VOZ GENERADA CON IA» y créditos de fuente, gráficos y música.
 
 La narración usa Qwen3-TTS (Qwen/Qwen3-TTS-12Hz-0.6B-Base), que clona la voz de la autora. Los subtítulos y el control de calidad (WER por escena) usan faster-whisper. El video se arma con Pillow y ffmpeg, en formato 1080 × 1920. La música de fondo se genera por código (acordes con ondas seno), así que no tiene derechos de autor.
 
+
+**Créditos de las fotos** (Wikimedia Commons):
+
+| Foto | Autor | Licencia |
+|---|---|---|
+| [Arándanos](https://commons.wikimedia.org/wiki/File:Blueberries_in_harvest_season.jpg) | Marc-Lautenbacher | CC BY-SA 4.0 |
+| [Palta Hass](https://commons.wikimedia.org/wiki/File:Avocado_Hass_-_single_and_halved.jpg) | Ivar Leidus | CC BY-SA 4.0 |
+| [Mazorca de cacao](https://commons.wikimedia.org/wiki/File:Cacao-pod-k4636-14.jpg) | Keith Weller, USDA ARS | Public domain |
+| [Buque portacontenedores refrigerado](https://commons.wikimedia.org/wiki/File:Container_Ship_Dole_Maya.jpg) | GuavaTrain | CC0 |
+| [Uva de mesa](https://commons.wikimedia.org/wiki/File:2021-08-14_15_18_00_Black_seedless_table_grapes_in_the_Franklin_Farm_section_of_Oak_Hill,_Fairfax_County,_Virginia.jpg) | Famartin | CC BY-SA 4.0 |
+
 ## Uso de IA
 
-Se usó un asistente de IA (Claude) para buscar fuentes, escribir el código de descarga, procesamiento y dashboard, y redactar el guion. La narración del reel es una voz generada con IA (Qwen3-TTS) a partir de la voz de la autora. Las cifras se verificaron contra los datos procesados (`hallazgos.json`) y se contrastaron con el BCRP.
+Se usó un asistente de IA (Claude) para buscar fuentes, escribir el código de descarga, procesamiento y dashboard, y redactar el guion. La narración del reel es una voz generada con IA (Qwen3-TTS) a partir de la voz de la autora. Las fotos no fueron generadas con IA: son fotos reales con licencia libre. Las cifras se verificaron contra los datos procesados (`hallazgos.json`) y se contrastaron con el BCRP.

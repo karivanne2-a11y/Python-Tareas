@@ -6,7 +6,7 @@
 
 - 📊 **Dashboard público:** https://karivanne2-a11y.github.io/Python-Tareas/tarea_3/web/
 - 🎬 **Reel:** [`reel/reel.mp4`](reel/reel.mp4)
-- 💼 **Publicación de LinkedIn:** _(enlace pendiente)_
+- 💼 **Publicación de LinkedIn:** https://lnkd.in/p/evDJSEfu
 
 ## Descripción
 

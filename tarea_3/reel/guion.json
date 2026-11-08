@@ -67,17 +67,6 @@
       "foto": "recursos/fotos/barco.jpg",
       "credito_foto": "Foto: GuavaTrain · CC0 · Wikimedia Commons",
       "dato": "Los envíos llegan a 97 países, pero dependen de dos"
-    },
-    {
-      "frase": "En resumen: el agro peruano vende más que nunca, pero depende de pocas frutas y de dos grandes compradores. Todos los datos están en el enlace.",
-      "cifra": "",
-      "etiqueta": "En resumen: más ventas, pero más dependencia",
-      "imagen": "recursos/dash_historia.jpg",
-      "cifra_en_texto": true,
-      "foto": "recursos/fotos/barco.jpg",
-      "credito_foto": "Foto: GuavaTrain · CC0 · Wikimedia Commons",
-      "dato": "Datos: UN Comtrade y BCRP, 2010 a 2025",
-      "wer": 0.0
     }
   ],
   "hashtags": [

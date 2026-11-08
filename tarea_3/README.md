@@ -89,7 +89,7 @@ tarea_3/
 │   ├── data/datos.json
 │   └── assets/          capturas del dashboard
 └── reel/
-    ├── guion.json       guion de 7 escenas con las cifras verificadas
+    ├── guion.json       guion de 6 escenas con las cifras verificadas
     ├── graficos.py      gráficos de cada escena
     ├── reel.py, hacer_reel.py   voz clonada + video animado (adaptado de la sesión 15)
     ├── recortar_voz.py  elige 15-25 s de la grabación como voz de referencia
@@ -123,9 +123,8 @@ uv run --extra reel python reel/hacer_reel.py --reusar                          
 En Windows, si `ctranslate2` o `torch` no cargan (`WinError 126`), falta el runtime de Visual C++. Instala el [Microsoft Visual C++ Redistributable](https://aka.ms/vs/17/release/vc_redist.x64.exe).
 
 Qué tiene el reel:
-- Dura alrededor de 60 segundos, en formato vertical 1080 × 1920, con 7 escenas.
+- Dura 51 segundos, en formato vertical 1080 × 1920, con 6 escenas.
 - Cada escena combina una foto del producto o del transporte (de fondo, oscurecida y con un zoom lento) con un gráfico o una captura del dashboard. El gráfico aparece con un barrido animado, la cifra cuenta hacia arriba y debajo va un dato de contexto.
-- El cierre resume los hallazgos.
 - Los subtítulos se resaltan palabra por palabra. Su texto sale del guion y Whisper solo aporta los tiempos, así que un error de transcripción no llega a la pantalla.
 - Lleva el aviso «VOZ GENERADA CON IA» y créditos de fuente, gráficos y música.
 

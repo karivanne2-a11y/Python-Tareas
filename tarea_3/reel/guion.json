@@ -33,7 +33,8 @@
       "wer": 0.0,
       "foto": "recursos/fotos/uva.jpg",
       "credito_foto": "Foto: Famartin · CC BY-SA 4.0 · Wikimedia Commons",
-      "dato": "En 2010 sumaban solo el 17 % de la canasta"
+      "dato": "En 2010 sumaban solo el 17 % de la canasta",
+      "frase_voz": "Arándano, uva i palta ya suman seis de cada diez dólares de esa canasta. En dos mil diez no llegaban a dos."
     },
     {
       "frase": "¿Vendimos más o más caro? Las frutas crecieron por volumen: el arándano envió treinta y seis veces más, aunque su precio bajó.",
@@ -44,7 +45,8 @@
       "wer": 0.0,
       "foto": "recursos/fotos/arandano.jpg",
       "credito_foto": "Foto: Marc-Lautenbacher · CC BY-SA 4.0 · Wikimedia Commons",
-      "dato": "Mientras tanto, su precio por kilo bajó 30 %"
+      "dato": "Mientras tanto, su precio por kilo bajó 30 %",
+      "frase_voz": "¿Vendimos más o más caro? Las frutas crecieron por volumen: el arándano envió treinta i seis veces más, aunque su precio bajó."
     },
     {
       "frase": "El cacao, en cambio, creció por precio: vendió casi las mismas toneladas, pero su precio por kilo subió más de ciento cincuenta por ciento.",
@@ -66,7 +68,8 @@
       "wer": 0.0,
       "foto": "recursos/fotos/barco.jpg",
       "credito_foto": "Foto: GuavaTrain · CC0 · Wikimedia Commons",
-      "dato": "Los envíos llegan a 97 países, pero dependen de dos"
+      "dato": "Los envíos llegan a 97 países, pero dependen de dos",
+      "frase_voz": "I dependemos de pocos compradores: Estados Unidos i Países Bajos se llevan más de la mitad de todo."
     }
   ],
   "hashtags": [

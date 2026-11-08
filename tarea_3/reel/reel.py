@@ -134,7 +134,8 @@ class Narracion:
 
 def narrar(voz, guion, max_wer=0.25, reintentos=1, velocidad=1.0):
     """Narra cada escena; si Whisper no entiende bien una escena (WER alto), la vuelve a generar."""
-    frases = [e["frase"] for e in guion["escenas"]]
+    # frase_voz: texto para el TTS cuando hay que forzar una pronunciación; los subtítulos usan frase
+    frases = [e.get("frase_voz", e["frase"]) for e in guion["escenas"]]
     n = len(frases)
     estilos = [e.get("estilo") or ESTILOS["inicio" if i == 0 else "cierre" if i == n - 1 else "medio"]
                for i, e in enumerate(guion["escenas"])]
@@ -361,7 +362,7 @@ def narracion_guardada(ruta, n_escenas):
 def renarrar(voz, guion, narracion, k, velocidad=1.0):
     """Vuelve a narrar solo la escena k (por ejemplo, si cambió su frase) y la inserta en la narración guardada."""
     e = guion["escenas"][k]
-    w = np.asarray(voz.decir([e["frase"]])[0], np.float32)
+    w = np.asarray(voz.decir([e.get("frase_voz", e["frase"])])[0], np.float32)
     if velocidad != 1:
         w = _acelerar(w, voz.sr, velocidad)
     if voz.sr != narracion.sr:

@@ -1,0 +1,31 @@
+nivel,codigo,nombre,metodo,pobreza_pct,pobreza_extrema_pct,poblacion,n_muestra
+nacional,PE,Perú,hogares,27.58,5.5,34482700,33691
+area,Rural,Rural,hogares,39.3,15.52,6595188,11660
+area,Urbana,Urbana,hogares,24.81,3.14,27887512,22031
+departamento,01,Amazonas,hogares,25.75,6.01,442355,1243
+departamento,02,Áncash,hogares,22.77,5.8,1212494,1393
+departamento,03,Apurímac,hogares,23.96,5.24,494188,913
+departamento,04,Arequipa,hogares,15.78,1.65,1421684,1506
+departamento,05,Ayacucho,hogares,32.76,9.09,775447,1160
+departamento,06,Cajamarca,hogares,45.01,19.72,1554586,1469
+departamento,07,Callao,hogares,33.86,5.04,1142618,1027
+departamento,08,Cusco,hogares,18.54,2.1,1409467,1230
+departamento,09,Huancavelica,hogares,33.4,11.16,543103,1042
+departamento,10,Huánuco,hogares,38.96,12.2,926653,1244
+departamento,11,Ica,hogares,6.01,0.15,854203,1500
+departamento,12,Junín,hogares,18.5,3.82,1450149,1506
+departamento,13,La Libertad,hogares,30.19,6.56,2080788,1509
+departamento,14,Lambayeque,hogares,14.04,0.5,1349731,1302
+departamento,15,Lima,hogares,27.07,3.12,11279909,4544
+departamento,16,Loreto,hogares,42.97,14.98,1129071,1359
+departamento,17,Madre de Dios,hogares,11.15,1.53,165992,603
+departamento,18,Moquegua,hogares,10.97,2.38,198386,963
+departamento,19,Pasco,hogares,38.97,8.33,327776,865
+departamento,20,Piura,hogares,31.86,4.41,1988570,1611
+departamento,21,Puno,hogares,39.94,12.49,1586886,1123
+departamento,22,San Martín,hogares,22.02,4.39,947446,1347
+departamento,23,Tacna,hogares,23.99,2.65,380755,1271
+departamento,24,Tumbes,hogares,26.9,1.06,261959,842
+departamento,25,Ucayali,hogares,27.07,3.26,558484,1119
+sexo,Hombre,Hombre,personas,27.37,5.37,16453003,52587
+sexo,Mujer,Mujer,personas,27.68,5.62,17694764,56077

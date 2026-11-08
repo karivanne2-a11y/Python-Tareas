@@ -1,0 +1,376 @@
+[
+  {
+    "tipo": "skill",
+    "skill": "limpiando-enaho",
+    "comando": "uv run .claude/skills/limpiando-enaho/scripts/limpiar.py --anio 2024",
+    "codigo_salida": 0,
+    "segundos": 9.0,
+    "ultimas_lineas": [
+      "[APROBADA] La ponderación importa (el promedio simple no sirve): promedio simple 25.61 % frente a 27.53 % ponderado",
+      "============================================================",
+      "RESULTADO: APROBADO",
+      "Guardados: personas_2024.parquet, indicadores.csv (30 filas)"
+    ]
+  },
+  {
+    "tipo": "skill",
+    "skill": "graficando-enaho",
+    "comando": "uv run .claude/skills/graficando-enaho/scripts/graficar.py --grafico todos",
+    "codigo_salida": 0,
+    "segundos": 23.1,
+    "ultimas_lineas": [
+      "Guardado figuras\\pobreza_area_2024.png",
+      "Guardado figuras\\pobreza_sexo_2024.png",
+      "Guardado figuras\\pobreza_edad_2024.png",
+      "Guardado figuras\\pobreza_departamento_2024.png"
+    ]
+  },
+  {
+    "tipo": "skill",
+    "skill": "mapeando-enaho",
+    "comando": "uv run .claude/skills/mapeando-enaho/scripts/mapear.py",
+    "codigo_salida": 0,
+    "segundos": 63.9,
+    "ultimas_lineas": [
+      "[APROBADA] Unión por código FIRST_IDDP = ubigeo[:2]: 25/25 con dato",
+      "[APROBADA] Lima (15) y Callao (07) separados",
+      "Comparación con la referencia de la Sesión 16 (redondeada a 1 decimal): diferencia máxima 0.05 pp (AMAZONAS) ; 25/25 dentro de ±0.1 pp",
+      "Guardado mapas\\pobreza_departamento.png"
+    ]
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "buscar_series",
+    "argumentos": {
+      "texto": "tasa de referencia politica monetaria",
+      "frecuencia": "Mensual",
+      "limite": 3
+    },
+    "segundos": 10.0
+  },
+  {
+    "tipo": "mcp_recurso",
+    "uri": "bcrp://serie/RD16202DA"
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "RD16202DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 4.0
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "resumen",
+    "argumentos": {
+      "codigo": "RD16202DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 0.1
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "PD04722MM",
+      "desde": "2020-01",
+      "hasta": "2024-12"
+    },
+    "segundos": 0.7
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "resumen",
+    "argumentos": {
+      "codigo": "PD04722MM",
+      "desde": "2020-01",
+      "hasta": "2024-12"
+    },
+    "segundos": 0.0
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "PN07807NM",
+      "desde": "2020-01",
+      "hasta": "2024-12"
+    },
+    "segundos": 0.7
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "resumen",
+    "argumentos": {
+      "codigo": "PN07807NM",
+      "desde": "2020-01",
+      "hasta": "2024-12"
+    },
+    "segundos": 0.0
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "correlacion",
+    "argumentos": {
+      "codigo_a": "PD04722MM",
+      "codigo_b": "PN07807NM",
+      "desde": "2020-01",
+      "hasta": "2024-12"
+    },
+    "segundos": 0.3
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "RD16127DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 0.7
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "RD16130DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 0.5
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "RD16133DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 0.7
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "RD16136DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 1.7
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "RD16139DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 0.7
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "RD16142DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 0.6
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "RD16145DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 0.7
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "RD16148DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 0.5
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "RD16151DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 0.6
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "RD16154DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 0.5
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "RD16157DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 0.5
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "RD16160DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 0.6
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "RD16163DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 0.6
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "RD16166DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 0.6
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "RD16169DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 0.6
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "RD16172DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 0.7
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "RD16175DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 0.7
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "RD16178DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 0.6
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "RD16181DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 0.5
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "RD16184DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 0.6
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "RD16187DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 3.8
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "RD16190DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 0.6
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "RD16193DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 0.6
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "RD16196DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 0.5
+  },
+  {
+    "tipo": "mcp",
+    "herramienta": "serie",
+    "argumentos": {
+      "codigo": "RD16199DA",
+      "desde": "2020",
+      "hasta": "2024"
+    },
+    "segundos": 0.5
+  }
+]

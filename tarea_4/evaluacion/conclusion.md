@@ -1,0 +1,15 @@
+## Análisis y conclusión
+
+### Principales errores encontrados
+- **B3, Modo A (no contestada):** sin el servidor MCP, la sesión revisó la carpeta, vio que solo tenía datos de la ENAHO y respondió «no lo sé» en vez de buscar la serie del BCRP. Es el único caso en que MCP/Skills cambió una respuesta de incorrecta a correcta.
+- **E2, ambos modos (incorrecta):** la pregunta pedía «cuántas personas son residentes habituales». Los dos modos respondieron 34,147,770 (personas **expandidas** con `facpob07`) y solo mencionaron 108,664 como «registros de la muestra». La respuesta esperada era 108,664. **La causa es una pregunta mal formulada** (debió decir «registros muestrales, sin expandir»); no se modificó la respuesta esperada después de ver los resultados y por eso cuenta como incorrecta en los dos modos.
+- **Corrección del calificador (transparencia):** en la primera calificación C1 salió «incorrecta» en ambos modos porque la nota «Tolerancia 1 %.» de `preguntas.csv` se interpretó por error como un criterio de causalidad. Los valores generados (26,460.5) eran correctos. Se corrigió la regla del calificador (`evaluar.py`: solo C2 exige interpretar la causalidad). `preguntas.csv` no cambió (su huella está en `preguntas.sha256`).
+
+### Observaciones
+- El Modo A **no es «sin herramientas»**: tiene Bash y acceso a internet, así que en B1, B2 y B4 llamó a la API pública del BCRP y acertó, y en C1 y C2 calculó el crédito por habitante con la ENAHO y la API. La ventaja de MCP/Skills en exactitud fue por tanto pequeña: 9/10 frente a 8/10.
+- **Tiempo:** el promedio del Modo A (81.2 s) está dominado por C2 (522.8 s, 16 llamadas a Bash). Sin C2, los promedios son aproximadamente 32 s (Modo A) y 22 s (Modo B). En las preguntas del BCRP (B1–B4) el Modo B respondió con 1 a 3 llamadas al MCP.
+- **Costo:** el Modo B costó algo más en total (USD 0.92 frente a 0.76), sobre todo en C1 y C2, donde hizo muchas llamadas `serie`.
+- **Uso real de herramientas:** MCP en 6 de 10 sesiones del Modo B (las del BCRP y las combinadas). Las Skills se usaron en 4 de 10 (E1, E3, E4 y C2): el agente leyó `SKILL.md`, ejecutó su script y usó `indicadores.csv`; no llamó a la herramienta `Skill`, por lo que esta evaluación no demuestra la activación automática por descripción.
+
+### Conclusión sobre la utilidad de MCP y Skills
+En este experimento, MCP y Skills **no mejoraron de forma apreciable la exactitud** (9/10 frente a 8/10) porque un agente con Bash e internet ya puede obtener estas cifras por su cuenta; sí ayudaron en **descubrimiento** (B3: el MCP con `buscar_series` encuentra series que el agente sin MCP no sabe dónde buscar), **rapidez** (menos pasos y menos tiempo en las preguntas con cálculo, p. ej. C2) y **trazabilidad** (cada cifra sale con código de serie y validaciones de ENAHO). Limitaciones del experimento: 10 preguntas, una sola ejecución por pregunta y modo (sin repeticiones), un solo modelo, y una pregunta mal formulada (E2), por lo que las diferencias observadas no son estadísticamente concluyentes.

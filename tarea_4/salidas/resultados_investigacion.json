@@ -1,0 +1,800 @@
+{
+  "bcrp": {
+    "busqueda": [
+      {
+        "codigo": "PD04722MM",
+        "nombre": "Tasas de interés del Banco Central de Reserva - Tasa de Referencia de la Política Monetaria",
+        "categoria": "Tasas de interés",
+        "frecuencia": "Mensual",
+        "inicio": "Ene-2004",
+        "actualizada": "2026-10-15"
+      }
+    ],
+    "ficha_credito_total": {
+      "codigo": "RD16202DA",
+      "nombre": "Crédito directo del sistema financiero al sector privado por departamentos - fin de periodo (millones S/) - Total (total)",
+      "categoria": "Sistema financiero",
+      "frecuencia": "Anual",
+      "inicio": "2004",
+      "actualizada": "2026-04-30"
+    },
+    "credito_nacional": {
+      "codigo": "RD16202DA",
+      "nombre": "Crédito directo del sistema financiero al sector privado por departamentos - fin de periodo (millones S/) - Total (total)",
+      "frecuencia": "Anual",
+      "datos": [
+        {
+          "periodo": "2020",
+          "valor": 369826.10316113
+        },
+        {
+          "periodo": "2021",
+          "valor": 395349.61717182
+        },
+        {
+          "periodo": "2022",
+          "valor": 407858.041968699
+        },
+        {
+          "periodo": "2023",
+          "valor": 404773.30921618
+        },
+        {
+          "periodo": "2024",
+          "valor": 407351.74201402
+        }
+      ],
+      "fuente": "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/RD16202DA/json/2020/2024"
+    },
+    "credito_resumen": {
+      "codigo": "RD16202DA",
+      "nombre": "Crédito directo del sistema financiero al sector privado por departamentos - fin de periodo (millones S/) - Total (total)",
+      "frecuencia": "Anual",
+      "n": 5,
+      "primero": {
+        "periodo": "2020",
+        "valor": 369826.10316113
+      },
+      "ultimo": {
+        "periodo": "2024",
+        "valor": 407351.74201402
+      },
+      "cambio": 37525.63885289,
+      "variacion_pct": 10.146833479880248,
+      "promedio": 397031.76270636974,
+      "maximo": {
+        "periodo": "2022",
+        "valor": 407858.041968699
+      },
+      "minimo": {
+        "periodo": "2020",
+        "valor": 369826.10316113
+      },
+      "fuente": "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/RD16202DA/json/2020/2024"
+    },
+    "tasa_ref_serie": {
+      "codigo": "PD04722MM",
+      "nombre": "Tasas de interés del Banco Central de Reserva - Tasa de Referencia de la Política Monetaria",
+      "frecuencia": "Mensual",
+      "datos": [
+        {
+          "periodo": "2020-01",
+          "valor": 2.25
+        },
+        {
+          "periodo": "2020-02",
+          "valor": 2.25
+        },
+        {
+          "periodo": "2020-03",
+          "valor": 1.25
+        },
+        {
+          "periodo": "2020-04",
+          "valor": 0.25
+        },
+        {
+          "periodo": "2020-05",
+          "valor": 0.25
+        },
+        {
+          "periodo": "2020-06",
+          "valor": 0.25
+        },
+        {
+          "periodo": "2020-07",
+          "valor": 0.25
+        },
+        {
+          "periodo": "2020-08",
+          "valor": 0.25
+        },
+        {
+          "periodo": "2020-09",
+          "valor": 0.25
+        },
+        {
+          "periodo": "2020-10",
+          "valor": 0.25
+        },
+        {
+          "periodo": "2020-11",
+          "valor": 0.25
+        },
+        {
+          "periodo": "2020-12",
+          "valor": 0.25
+        },
+        {
+          "periodo": "2021-01",
+          "valor": 0.25
+        },
+        {
+          "periodo": "2021-02",
+          "valor": 0.25
+        },
+        {
+          "periodo": "2021-03",
+          "valor": 0.25
+        },
+        {
+          "periodo": "2021-04",
+          "valor": 0.25
+        },
+        {
+          "periodo": "2021-05",
+          "valor": 0.25
+        },
+        {
+          "periodo": "2021-06",
+          "valor": 0.25
+        },
+        {
+          "periodo": "2021-07",
+          "valor": 0.25
+        },
+        {
+          "periodo": "2021-08",
+          "valor": 0.5
+        },
+        {
+          "periodo": "2021-09",
+          "valor": 1.0
+        },
+        {
+          "periodo": "2021-10",
+          "valor": 1.5
+        },
+        {
+          "periodo": "2021-11",
+          "valor": 2.0
+        },
+        {
+          "periodo": "2021-12",
+          "valor": 2.5
+        },
+        {
+          "periodo": "2022-01",
+          "valor": 3.0
+        },
+        {
+          "periodo": "2022-02",
+          "valor": 3.5
+        },
+        {
+          "periodo": "2022-03",
+          "valor": 4.0
+        },
+        {
+          "periodo": "2022-04",
+          "valor": 4.5
+        },
+        {
+          "periodo": "2022-05",
+          "valor": 5.0
+        },
+        {
+          "periodo": "2022-06",
+          "valor": 5.5
+        },
+        {
+          "periodo": "2022-07",
+          "valor": 6.0
+        },
+        {
+          "periodo": "2022-08",
+          "valor": 6.5
+        },
+        {
+          "periodo": "2022-09",
+          "valor": 6.75
+        },
+        {
+          "periodo": "2022-10",
+          "valor": 7.0
+        },
+        {
+          "periodo": "2022-11",
+          "valor": 7.25
+        },
+        {
+          "periodo": "2022-12",
+          "valor": 7.5
+        },
+        {
+          "periodo": "2023-01",
+          "valor": 7.75
+        },
+        {
+          "periodo": "2023-02",
+          "valor": 7.75
+        },
+        {
+          "periodo": "2023-03",
+          "valor": 7.75
+        },
+        {
+          "periodo": "2023-04",
+          "valor": 7.75
+        },
+        {
+          "periodo": "2023-05",
+          "valor": 7.75
+        },
+        {
+          "periodo": "2023-06",
+          "valor": 7.75
+        },
+        {
+          "periodo": "2023-07",
+          "valor": 7.75
+        },
+        {
+          "periodo": "2023-08",
+          "valor": 7.75
+        },
+        {
+          "periodo": "2023-09",
+          "valor": 7.5
+        },
+        {
+          "periodo": "2023-10",
+          "valor": 7.25
+        },
+        {
+          "periodo": "2023-11",
+          "valor": 7.0
+        },
+        {
+          "periodo": "2023-12",
+          "valor": 6.75
+        },
+        {
+          "periodo": "2024-01",
+          "valor": 6.5
+        },
+        {
+          "periodo": "2024-02",
+          "valor": 6.25
+        },
+        {
+          "periodo": "2024-03",
+          "valor": 6.25
+        },
+        {
+          "periodo": "2024-04",
+          "valor": 6.0
+        },
+        {
+          "periodo": "2024-05",
+          "valor": 5.75
+        },
+        {
+          "periodo": "2024-06",
+          "valor": 5.75
+        },
+        {
+          "periodo": "2024-07",
+          "valor": 5.75
+        },
+        {
+          "periodo": "2024-08",
+          "valor": 5.5
+        },
+        {
+          "periodo": "2024-09",
+          "valor": 5.25
+        },
+        {
+          "periodo": "2024-10",
+          "valor": 5.25
+        },
+        {
+          "periodo": "2024-11",
+          "valor": 5.0
+        },
+        {
+          "periodo": "2024-12",
+          "valor": 5.0
+        }
+      ],
+      "fuente": "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PD04722MM/json/2020-01/2024-12"
+    },
+    "tasa_ref_resumen": {
+      "codigo": "PD04722MM",
+      "nombre": "Tasas de interés del Banco Central de Reserva - Tasa de Referencia de la Política Monetaria",
+      "frecuencia": "Mensual",
+      "n": 60,
+      "primero": {
+        "periodo": "2020-01",
+        "valor": 2.25
+      },
+      "ultimo": {
+        "periodo": "2024-12",
+        "valor": 5.0
+      },
+      "cambio": 2.75,
+      "variacion_pct": 122.22222222222223,
+      "promedio": 4.041666666666667,
+      "maximo": {
+        "periodo": "2023-01",
+        "valor": 7.75
+      },
+      "minimo": {
+        "periodo": "2020-04",
+        "valor": 0.25
+      },
+      "fuente": "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PD04722MM/json/2020-01/2024-12"
+    },
+    "tamn_serie": {
+      "codigo": "PN07807NM",
+      "nombre": "Tasas de interés activas y pasivas promedio de las empresas bancarias en MN (términos efectivos anuales) - Activas - TAMN",
+      "frecuencia": "Mensual",
+      "datos": [
+        {
+          "periodo": "2020-01",
+          "valor": 14.351
+        },
+        {
+          "periodo": "2020-02",
+          "valor": 14.2166
+        },
+        {
+          "periodo": "2020-03",
+          "valor": 14.0555
+        },
+        {
+          "periodo": "2020-04",
+          "valor": 13.3643
+        },
+        {
+          "periodo": "2020-05",
+          "valor": 12.7823
+        },
+        {
+          "periodo": "2020-06",
+          "valor": 12.4427
+        },
+        {
+          "periodo": "2020-07",
+          "valor": 12.2887
+        },
+        {
+          "periodo": "2020-08",
+          "valor": 12.3435
+        },
+        {
+          "periodo": "2020-09",
+          "valor": 12.4423
+        },
+        {
+          "periodo": "2020-10",
+          "valor": 12.4984
+        },
+        {
+          "periodo": "2020-11",
+          "valor": 12.3737
+        },
+        {
+          "periodo": "2020-12",
+          "valor": 12.101
+        },
+        {
+          "periodo": "2021-01",
+          "valor": 12.0323
+        },
+        {
+          "periodo": "2021-02",
+          "valor": 11.8846
+        },
+        {
+          "periodo": "2021-03",
+          "valor": 11.1365
+        },
+        {
+          "periodo": "2021-04",
+          "valor": 11.0793
+        },
+        {
+          "periodo": "2021-05",
+          "valor": 10.8042
+        },
+        {
+          "periodo": "2021-06",
+          "valor": 10.683
+        },
+        {
+          "periodo": "2021-07",
+          "valor": 10.6816
+        },
+        {
+          "periodo": "2021-08",
+          "valor": 10.6861
+        },
+        {
+          "periodo": "2021-09",
+          "valor": 10.4913
+        },
+        {
+          "periodo": "2021-10",
+          "valor": 10.5577
+        },
+        {
+          "periodo": "2021-11",
+          "valor": 10.7307
+        },
+        {
+          "periodo": "2021-12",
+          "valor": 10.9868
+        },
+        {
+          "periodo": "2022-01",
+          "valor": 11.1277
+        },
+        {
+          "periodo": "2022-02",
+          "valor": 11.2939
+        },
+        {
+          "periodo": "2022-03",
+          "valor": 11.5168
+        },
+        {
+          "periodo": "2022-04",
+          "valor": 11.8497
+        },
+        {
+          "periodo": "2022-05",
+          "valor": 12.1248
+        },
+        {
+          "periodo": "2022-06",
+          "valor": 12.4933
+        },
+        {
+          "periodo": "2022-07",
+          "valor": 12.6616
+        },
+        {
+          "periodo": "2022-08",
+          "valor": 12.9406
+        },
+        {
+          "periodo": "2022-09",
+          "valor": 13.3757
+        },
+        {
+          "periodo": "2022-10",
+          "valor": 13.5935
+        },
+        {
+          "periodo": "2022-11",
+          "valor": 13.926
+        },
+        {
+          "periodo": "2022-12",
+          "valor": 14.2635
+        },
+        {
+          "periodo": "2023-01",
+          "valor": 14.4623
+        },
+        {
+          "periodo": "2023-02",
+          "valor": 14.7364
+        },
+        {
+          "periodo": "2023-03",
+          "valor": 14.8803
+        },
+        {
+          "periodo": "2023-04",
+          "valor": 15.1693
+        },
+        {
+          "periodo": "2023-05",
+          "valor": 15.2971
+        },
+        {
+          "periodo": "2023-06",
+          "valor": 15.539
+        },
+        {
+          "periodo": "2023-07",
+          "valor": 15.6423
+        },
+        {
+          "periodo": "2023-08",
+          "valor": 15.7516
+        },
+        {
+          "periodo": "2023-09",
+          "valor": 15.9513
+        },
+        {
+          "periodo": "2023-10",
+          "valor": 15.9116
+        },
+        {
+          "periodo": "2023-11",
+          "valor": 15.876
+        },
+        {
+          "periodo": "2023-12",
+          "valor": 15.8642
+        },
+        {
+          "periodo": "2024-01",
+          "valor": 15.8087
+        },
+        {
+          "periodo": "2024-02",
+          "valor": 15.7303
+        },
+        {
+          "periodo": "2024-03",
+          "valor": 15.76
+        },
+        {
+          "periodo": "2024-04",
+          "valor": 15.734
+        },
+        {
+          "periodo": "2024-05",
+          "valor": 15.7542
+        },
+        {
+          "periodo": "2024-06",
+          "valor": 15.6527
+        },
+        {
+          "periodo": "2024-07",
+          "valor": 15.081
+        },
+        {
+          "periodo": "2024-08",
+          "valor": 14.9261
+        },
+        {
+          "periodo": "2024-09",
+          "valor": 14.7177
+        },
+        {
+          "periodo": "2024-10",
+          "valor": 14.7445
+        },
+        {
+          "periodo": "2024-11",
+          "valor": 14.781
+        },
+        {
+          "periodo": "2024-12",
+          "valor": 14.8781
+        }
+      ],
+      "fuente": "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PN07807NM/json/2020-01/2024-12"
+    },
+    "tamn_resumen": {
+      "codigo": "PN07807NM",
+      "nombre": "Tasas de interés activas y pasivas promedio de las empresas bancarias en MN (términos efectivos anuales) - Activas - TAMN",
+      "frecuencia": "Mensual",
+      "n": 60,
+      "primero": {
+        "periodo": "2020-01",
+        "valor": 14.351
+      },
+      "ultimo": {
+        "periodo": "2024-12",
+        "valor": 14.8781
+      },
+      "cambio": 0.527099999999999,
+      "variacion_pct": 3.6729147794578707,
+      "promedio": 13.447181666666665,
+      "maximo": {
+        "periodo": "2023-09",
+        "valor": 15.9513
+      },
+      "minimo": {
+        "periodo": "2021-09",
+        "valor": 10.4913
+      },
+      "fuente": "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PN07807NM/json/2020-01/2024-12"
+    },
+    "corr_tasas": {
+      "metodo": "pearson",
+      "coeficiente": 0.7631808358352515,
+      "n": 60,
+      "primer_periodo": "2020-01",
+      "ultimo_periodo": "2024-12",
+      "periodos_descartados": 0,
+      "serie_a": {
+        "codigo": "PD04722MM",
+        "nombre": "Tasas de interés del Banco Central de Reserva - Tasa de Referencia de la Política Monetaria"
+      },
+      "serie_b": {
+        "codigo": "PN07807NM",
+        "nombre": "Tasas de interés activas y pasivas promedio de las empresas bancarias en MN (términos efectivos anuales) - Activas - TAMN"
+      },
+      "frecuencia": "Mensual",
+      "fuentes": [
+        "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PD04722MM/json/2020-01/2024-12",
+        "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PN07807NM/json/2020-01/2024-12"
+      ],
+      "advertencia": "Asociación descriptiva; no implica causalidad."
+    }
+  },
+  "correlaciones": {
+    "principal": {
+      "etiqueta": "Crédito per cápita vs pobreza (25 unidades)",
+      "n": 25,
+      "spearman": -0.604,
+      "pearson": -0.269,
+      "p_permutacion_spearman": 0.0015
+    },
+    "sin_lima_callao": {
+      "etiqueta": "Sin Lima ni Callao (23 unidades)",
+      "n": 23,
+      "spearman": -0.718,
+      "pearson": -0.698,
+      "p_permutacion_spearman": 0.0002
+    },
+    "vs_rural_pobreza": {
+      "etiqueta": "Crédito per cápita vs pobreza rural",
+      "n": 24,
+      "spearman": -0.478,
+      "pearson": -0.225,
+      "p_permutacion_spearman": 0.0181
+    },
+    "vs_urbana_pobreza": {
+      "etiqueta": "Crédito per cápita vs pobreza urbana",
+      "n": 25,
+      "spearman": -0.556,
+      "pearson": -0.178,
+      "p_permutacion_spearman": 0.0041
+    },
+    "ruralidad_vs_pobreza": {
+      "etiqueta": "% población rural vs pobreza",
+      "n": 25,
+      "spearman": 0.36,
+      "pearson": 0.449,
+      "p_permutacion_spearman": 0.08
+    },
+    "credito_vs_ruralidad": {
+      "etiqueta": "Crédito per cápita vs % rural",
+      "n": 25,
+      "spearman": -0.682,
+      "pearson": -0.509,
+      "p_permutacion_spearman": 0.0004
+    },
+    "robustez": {
+      "ols_credito": {
+        "n": 25,
+        "r2": 0.25,
+        "coef": {
+          "const": {
+            "beta": 99.483,
+            "ee": 26.428,
+            "p": 0.001
+          },
+          "ln_credito_pc": {
+            "beta": -8.704,
+            "ee": 3.144,
+            "p": 0.0109
+          }
+        }
+      },
+      "ols_credito_rural": {
+        "n": 25,
+        "r2": 0.27,
+        "coef": {
+          "const": {
+            "beta": 76.649,
+            "ee": 39.649,
+            "p": 0.0662
+          },
+          "ln_credito_pc": {
+            "beta": -6.32,
+            "ee": 4.41,
+            "p": 0.1659
+          },
+          "pct_poblacion_rural": {
+            "beta": 0.107,
+            "ee": 0.137,
+            "p": 0.4449
+          }
+        }
+      },
+      "spearman_parcial_control_ruralidad": {
+        "rho": -0.526,
+        "n": 25,
+        "p_aprox": 0.0083
+      },
+      "leave_one_out_spearman": {
+        "min": [
+          "Lima",
+          -0.6660869565217391
+        ],
+        "max": [
+          "Loreto",
+          -0.5662100590471743
+        ]
+      },
+      "extrema": {
+        "etiqueta": "Crédito per cápita vs pobreza extrema",
+        "n": 25,
+        "spearman": -0.681,
+        "pearson": -0.358,
+        "p_permutacion_spearman": 0.0004
+      },
+      "crecimiento_2020_2024_vs_pobreza": {
+        "etiqueta": "Crecimiento nominal del crédito 2020-2024 vs pobreza",
+        "n": 25,
+        "spearman": 0.207,
+        "pearson": 0.187,
+        "p_permutacion_spearman": 0.3207
+      }
+    }
+  },
+  "mas_credito_pc": [
+    {
+      "departamento": "Lima",
+      "credito_pc_2024_soles": 26460.5,
+      "pobreza_pct": 27.1
+    },
+    {
+      "departamento": "Arequipa",
+      "credito_pc_2024_soles": 10076.6,
+      "pobreza_pct": 15.8
+    },
+    {
+      "departamento": "Ica",
+      "credito_pc_2024_soles": 7422.7,
+      "pobreza_pct": 6.0
+    }
+  ],
+  "menos_credito_pc": [
+    {
+      "departamento": "Huancavelica",
+      "credito_pc_2024_soles": 1180.2,
+      "pobreza_pct": 33.4
+    },
+    {
+      "departamento": "Loreto",
+      "credito_pc_2024_soles": 2080.5,
+      "pobreza_pct": 43.0
+    },
+    {
+      "departamento": "Amazonas",
+      "credito_pc_2024_soles": 2434.5,
+      "pobreza_pct": 25.8
+    }
+  ],
+  "nacional_enaho": {
+    "pobreza_pct": 27.58,
+    "poblacion": 34482700
+  },
+  "area": {
+    "Rural": 39.3,
+    "Urbana": 24.81
+  }
+}

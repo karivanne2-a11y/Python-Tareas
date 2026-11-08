@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.env
+# Microdatos originales y catálogo descargado (ver README para descargarlos)
+datos/*
+!datos/.gitkeep
+*.dta
+*.zip
+*.parquet

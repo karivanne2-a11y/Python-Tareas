@@ -1,0 +1,5 @@
+VALIDACIÓN DEL MAPA (25 unidades)
+============================================================
+[APROBADA] Unión por código FIRST_IDDP = ubigeo[:2]: 25/25 con dato
+[APROBADA] Lima (15) y Callao (07) separados
+Comparación con la referencia de la Sesión 16 (redondeada a 1 decimal): diferencia máxima 0.05 pp (AMAZONAS) ; 25/25 dentro de ±0.1 pp
